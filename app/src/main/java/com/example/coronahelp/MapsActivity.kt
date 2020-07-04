@@ -8,29 +8,23 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
 import androidx.core.content.ContextCompat
+import com.example.coronahelp.PermissionUtils.PermissionDeniedDialog.Companion.newInstance
+import com.example.coronahelp.PermissionUtils.isPermissionGranted
+import com.example.coronahelp.PermissionUtils.requestPermission
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener
 import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 
-/**
- * This demo shows how GMS Location can be used to check for changes to the users location.  The
- * "My Location" button uses GMS Location to set the blue dot representing the users location.
- * Permission for [Manifest.permission.ACCESS_FINE_LOCATION] is requested at run
- * time. If the permission has not been granted, the Activity is finished with an error message.
- */
 class MapsActivity : AppCompatActivity(), OnMyLocationButtonClickListener,
-    OnMyLocationClickListener, OnMapReadyCallback, OnRequestPermissionsResultCallback {
-    /**
-     * Flag indicating whether a requested permission has been denied after returning in
-     * [.onRequestPermissionsResult].
-     */
+        OnMyLocationClickListener, OnMapReadyCallback, OnRequestPermissionsResultCallback {
+
     private var permissionDenied = false
     private lateinit var map: GoogleMap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.my_location_demo)
+        setContentView(R.layout.activity_maps) //my_location_demo
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
     }
@@ -47,15 +41,17 @@ class MapsActivity : AppCompatActivity(), OnMyLocationButtonClickListener,
      */
     private fun enableMyLocation() {
         if (!::map.isInitialized) return
+        // [START maps_check_location_permission]
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED) {
+                == PackageManager.PERMISSION_GRANTED) {
             map.isMyLocationEnabled = true
         } else {
             // Permission to access the location is missing. Show rationale and request permission
             requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
-                Manifest.permission.ACCESS_FINE_LOCATION, true
+                    Manifest.permission.ACCESS_FINE_LOCATION, true
             )
         }
+        // [END maps_check_location_permission]
     }
 
     override fun onMyLocationButtonClick(): Boolean {
@@ -69,6 +65,7 @@ class MapsActivity : AppCompatActivity(), OnMyLocationButtonClickListener,
         Toast.makeText(this, "Current location:\n$location", Toast.LENGTH_LONG).show()
     }
 
+    // [START maps_check_location_permission_result]
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
             return
@@ -78,11 +75,14 @@ class MapsActivity : AppCompatActivity(), OnMyLocationButtonClickListener,
             enableMyLocation()
         } else {
             // Permission was denied. Display an error message
+            // [START_EXCLUDE]
             // Display the missing permission error dialog when the fragments resume.
             permissionDenied = true
+            // [END_EXCLUDE]
         }
     }
 
+    // [END maps_check_location_permission_result]
     override fun onResumeFragments() {
         super.onResumeFragments()
         if (permissionDenied) {
