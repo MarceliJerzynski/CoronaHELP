@@ -1,4 +1,4 @@
-package com.example.coronahelp
+package com.example.coronahelp.utils
 
 import android.Manifest
 import android.app.AlertDialog
@@ -10,11 +10,21 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
-
+import androidx.fragment.app.FragmentManager
+import com.example.coronahelp.R
+import com.example.coronahelp.utils.ScreenUtils
 /**
  * Utility class for access to runtime permissions.
  */
 object PermissionUtils {
+
+    fun getPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray): Boolean {
+        if (requestCode != Parameters.LOCATION_PERMISSION_REQUEST_CODE) {
+            return false
+        }
+        return isPermissionGranted(permissions, grantResults, Manifest.permission.ACCESS_FINE_LOCATION)
+    }
+
     /**
      * Requests the fine location permission. If a rationale with an additional explanation should
      * be shown to the user, displays a dialog that triggers the request.
@@ -26,7 +36,10 @@ object PermissionUtils {
     ) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
             // Display a dialog with rationale.
-            RationaleDialog.newInstance(requestId, finishActivity)
+            RationaleDialog.newInstance(
+                requestId,
+                finishActivity
+            )
                 .show(activity.supportFragmentManager, "dialog")
         } else {
             // Location permission has not been granted yet, request it.
@@ -57,6 +70,14 @@ object PermissionUtils {
         return false
     }
 
+    fun onResume(permissionDenied: Boolean, supportFragmentManager: FragmentManager): Boolean {
+        if (permissionDenied) {
+            ScreenUtils.showMissingPermissionError(supportFragmentManager)
+            return false
+        }
+        return permissionDenied
+    }
+
     /**
      * A dialog that displays a permission denied message.
      */
@@ -75,7 +96,8 @@ object PermissionUtils {
             super.onDismiss(dialog)
             if (finishActivity) {
                 Toast.makeText(
-                    activity, R.string.permission_required_toast,
+                    activity,
+                    R.string.permission_required_toast,
                     Toast.LENGTH_SHORT
                 ).show()
                 activity?.finish()
@@ -94,7 +116,8 @@ object PermissionUtils {
                 val arguments = Bundle().apply {
                     putBoolean(ARGUMENT_FINISH_ACTIVITY, finishActivity)
                 }
-                return PermissionDeniedDialog().apply {
+                return PermissionDeniedDialog()
+                    .apply {
                     this.arguments = arguments
                 }
             }
@@ -111,7 +134,9 @@ object PermissionUtils {
      * to handle permit or denial of this permission request.
      */
     class RationaleDialog : DialogFragment() {
+
         private var finishActivity = false
+
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             val requestCode =
                 arguments?.getInt(ARGUMENT_PERMISSION_REQUEST_CODE) ?: 0
@@ -119,7 +144,7 @@ object PermissionUtils {
                 arguments?.getBoolean(ARGUMENT_FINISH_ACTIVITY) ?: false
             return AlertDialog.Builder(activity)
                 .setMessage(R.string.permission_rationale_location)
-                .setPositiveButton(android.R.string.ok) { dialog, which -> // After click on Ok, request the permission.
+                .setPositiveButton(android.R.string.ok) { _, _ -> // After click on Ok, request the permission.
                     ActivityCompat.requestPermissions(
                         activity!!,
                         arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -166,7 +191,8 @@ object PermissionUtils {
                     putInt(ARGUMENT_PERMISSION_REQUEST_CODE, requestCode)
                     putBoolean(ARGUMENT_FINISH_ACTIVITY, finishActivity)
                 }
-                return RationaleDialog().apply {
+                return RationaleDialog()
+                    .apply {
                     this.arguments = arguments
                 }
             }
