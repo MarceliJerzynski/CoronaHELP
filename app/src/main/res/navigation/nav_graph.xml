@@ -3,37 +3,38 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mapsActivity">
-    <activity
-        android:id="@+id/mapsActivity"
-        android:name="com.example.coronahelp.MapsActivity"
-        android:label="MapsActivity" />
+    app:startDestination="@id/mapsFragment">
+
     <fragment
         android:id="@+id/login"
-        android:name="com.example.coronahelp.viewModels.Login"
+        android:name="com.example.coronahelp.fragments.LoginFragment"
         android:label="login_fragment"
         tools:layout="@layout/login_fragment" >
-        <action
-            android:id="@+id/action_login_to_mapsActivity"
-            app:destination="@id/mapsActivity" />
     </fragment>
     <fragment
         android:id="@+id/register"
-        android:name="com.example.coronahelp.viewModels.Register"
+        android:name="com.example.coronahelp.fragments.RegisterFragment"
         android:label="register_fragment"
         tools:layout="@layout/register_fragment" >
-        <action
-            android:id="@+id/action_register_to_mapsActivity"
-            app:destination="@id/mapsActivity" />
     </fragment>
     <fragment
         android:id="@+id/createAnnouncement2"
-        android:name="com.example.coronahelp.viewModels.CreateAnnouncement"
+        android:name="com.example.coronahelp.fragments.CreateAnnouncementFragment"
         android:label="create_announcement_fragment"
         tools:layout="@layout/create_announcement_fragment" />
     <fragment
         android:id="@+id/announcementList"
-        android:name="com.example.coronahelp.viewModels.AnnouncementList"
+        android:name="com.example.coronahelp.fragments.AnnouncementListFragment"
         android:label="announcement_list_fragment"
         tools:layout="@layout/announcement_list_fragment" />
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.example.coronahelp.fragments.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapsFragment_to_announcementList"
+            app:destination="@id/announcementList"
+            app:enterAnim="@anim/fragment_fade_enter" />
+    </fragment>
 </navigation>

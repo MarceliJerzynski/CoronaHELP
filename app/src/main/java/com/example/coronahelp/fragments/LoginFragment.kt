@@ -1,4 +1,4 @@
-package com.example.coronahelp.viewModels
+package com.example.coronahelp.fragments
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -8,25 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.example.coronahelp.R
+import com.example.coronahelp.viewModels.LoginViewModel
 
-class Register : Fragment() {
+class LoginFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = Register()
-    }
-
-    private lateinit var viewModel: RegisterViewModel
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.register_fragment, container, false)
+        return inflater.inflate(R.layout.login_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(RegisterViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

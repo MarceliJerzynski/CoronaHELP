@@ -1,4 +1,4 @@
-package com.example.coronahelp.viewModels
+package com.example.coronahelp.fragments
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -7,17 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.coronahelp.AnnouncementRecyclerAdapter
+import com.example.coronahelp.adapters.AnnouncementRecyclerAdapter
 import com.example.coronahelp.DataSource
 import com.example.coronahelp.R
 import kotlinx.android.synthetic.main.announcement_list_fragment.*
 
 
-class AnnouncementList : Fragment() {
-
-    companion object {
-        fun newInstance() = AnnouncementList()
-    }
+class AnnouncementListFragment : Fragment() {
 
     private lateinit var viewModel: AnnouncementListViewModel
     private lateinit var announcementAdapter: AnnouncementRecyclerAdapter
@@ -40,8 +36,9 @@ class AnnouncementList : Fragment() {
 
     private fun initRecyclerView(){
         recycler_view.apply {
-            layoutManager = LinearLayoutManager(this)
-            announcementAdapter = AnnouncementRecyclerAdapter()
+            layoutManager = LinearLayoutManager(activity)
+            announcementAdapter =
+                AnnouncementRecyclerAdapter()
             adapter = announcementAdapter
         }
     }
