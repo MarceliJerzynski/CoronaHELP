@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 
 class AnnouncementsRepository() {
 
-    val restCaller = RestCaller()
+    //private val restCaller = RestCaller()
     var announcements: MutableList<Announcement>
 
     init {
@@ -23,21 +23,21 @@ class AnnouncementsRepository() {
      */
 
     fun getAnnouncementsFromREST(): List<AnnouncementResponse> {
-        return restCaller.getAnnouncements().value?.announcements ?: listOf<AnnouncementResponse>()
+        return RestCaller.getAnnouncements()?.announcements ?: listOf<AnnouncementResponse>()
     }
 
     fun createAnnouncement(title: String, description: String, category: Category, location: LatLng, time: LocalDateTime): Boolean {
         val announcement = Announcement(title, description, category, location, time)
-        return restCaller.postAnnouncements(announcement)
+        return RestCaller.postAnnouncement(announcement)
     }
 
     fun deleteAnnouncement(id: Int): Boolean {
-        return restCaller.deleteAnnouncements(id)
+        return RestCaller.deleteAnnouncements(id)
     }
 
     fun updateAnnouncement(id: Int, title: String, description: String, category: Category, location: LatLng, time: LocalDateTime): Boolean {
         val announcement = Announcement(title, description, category, location, time)
-        return restCaller.patchAnnouncements(id, announcement)
+        return RestCaller.patchAnnouncements(id, announcement)
     }
 
     private fun getAnnouncementFromResponse(response: AnnouncementResponse): Announcement {
