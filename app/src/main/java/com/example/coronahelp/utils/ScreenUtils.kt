@@ -3,7 +3,6 @@ package com.example.coronahelp.utils
 import android.app.Activity
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
-import com.example.coronahelp.MapsActivity
 
 object ScreenUtils {
 

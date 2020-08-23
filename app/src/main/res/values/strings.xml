@@ -257,4 +257,7 @@
     <!-- Marker Collision -->
     <string name="marker_collision_label">Marker Collision</string>
     <string name="marker_collision_description">Demonstrates different supported marker collision behaviors.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
