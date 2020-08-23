@@ -10,9 +10,12 @@ class Announcement(
     val title: String,
     @SerializedName("description")
     val description: String?,
-    @SerializedName("location")
-    val location: LatLng,
-    @SerializedName("time")
+    @SerializedName("category")
+    val category: Category,
+    @SerializedName("lat")
+    val lat: String,
+    @SerializedName("long")
+    val long: String,
+    @SerializedName("deadline")
     val time: LocalDateTime
-    //val person: Person
 )

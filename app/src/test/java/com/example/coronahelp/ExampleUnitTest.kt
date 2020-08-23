@@ -1,8 +1,14 @@
 package com.example.coronahelp
 
+import android.os.Build
+import com.example.coronahelp.model.LoginParams
+import com.example.coronahelp.model.RegisterParams
+import com.example.coronahelp.rest.RestCaller
 import org.junit.Test
 
 import org.junit.Assert.*
+import org.junit.Before
+import java.util.logging.Logger
 
 /**
  * Example local unit test, which will execute on the development machine (host).
