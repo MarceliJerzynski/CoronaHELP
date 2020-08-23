@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coronahelp.R
 import com.example.coronahelp.model.Announcement
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.layout_announcement_list_item.view.*
 
 class AnnouncementRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -53,7 +54,7 @@ class AnnouncementRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder
         fun bind(announcement: Announcement){
             announcementTitle.setText(announcement.title)
             announcementDesc.setText(announcement.description)
-            announcementLocalization.setText(announcement.location.toString())
+            announcementLocalization.text = announcement.location.toString()
             announcementTime.setText(announcement.time.toString())
         }
     }

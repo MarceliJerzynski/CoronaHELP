@@ -27,7 +27,7 @@ class RestCallerSpec {
     @Test
     fun shouldRegister() {
         var name = "test"
-        var email = "admin3@admin.com"
+        var email = "admin4@admin.com"
         var password = "1234567890";
         var registerParams = RegisterParams(name, email, password, password)
         var response = rest.postRegister(registerParams)

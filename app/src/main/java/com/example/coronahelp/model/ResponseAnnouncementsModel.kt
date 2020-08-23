@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 class ResponseAnnouncementsModel(
     @SerializedName("announcement")
-    var announcements: List<Announcement>
+    var announcements: List<AnnouncementResponse>
 )
