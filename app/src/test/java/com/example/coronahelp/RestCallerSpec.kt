@@ -46,8 +46,8 @@ class RestCallerSpec {
         "Potrzeba sanitarna",
         "Potrzeba na szybko 10 rolek papieru toaletowego!!",
         Category.TOILET_PAPER,
-        "52", "52.09",
-        LocalDateTime.now())
+        "52.00", "52.09",
+        LocalDateTime.now().toString())
 
         val result = RestCaller.postAnnouncement(announcement)
         assert(result)
@@ -58,6 +58,12 @@ class RestCallerSpec {
         val announcements = RestCaller.getAnnouncements();
         assertNotNull(announcements)
         println("Our announcements: $announcements")
+    }
+
+    @Test
+    fun shouldGiveMeGoodFuckingFormatOfDate() {
+        val text = LocalDateTime.now().toString()
+        println(text)
     }
 
 }

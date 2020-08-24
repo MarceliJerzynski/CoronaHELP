@@ -58,7 +58,7 @@ object RestCaller {
                 body.toString()
             )
             .response();
-        return response.statusCode == 200
+        return response.statusCode == 201
     }
 
     fun deleteAnnouncements(id: Int): Boolean {

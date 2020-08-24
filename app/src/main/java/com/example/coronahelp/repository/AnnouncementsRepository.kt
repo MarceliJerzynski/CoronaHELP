@@ -46,7 +46,7 @@ class AnnouncementsRepository() {
             response.description,
             response.category,
             LatLng(response.lat.toDouble(), response.long.toDouble()),
-            response.time
+            LocalDateTime.now() //TODO <- change THIS!!!!!!!
         )
     }
 
@@ -57,6 +57,6 @@ class AnnouncementsRepository() {
             announcement.category,
             announcement.location.latitude.toString(),
             announcement.location.longitude.toString(),
-            announcement.time)
+            announcement.time.toString())
     }
 }
