@@ -2,10 +2,7 @@ package com.example.coronahelp.rest
 
 import android.content.SharedPreferences
 import com.example.coronahelp.MainActivity
-import com.example.coronahelp.model.Announcement
-import com.example.coronahelp.model.LoginParams
-import com.example.coronahelp.model.RegisterParams
-import com.example.coronahelp.model.ResponseAnnouncementsModel
+import com.example.coronahelp.model.*
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.isSuccessful
 import com.github.kittinunf.fuel.gson.responseObject
@@ -28,44 +25,40 @@ object RestCaller {
     /**
      * This method is calling GET method to server and returns MutableLiveData of announcements
      */
-    fun getAnnouncements(): ResponseAnnouncementsModel? {
+    fun getAnnouncements(): List<AnnouncementResponse> {
 
         val (request, response, result) =
             Fuel
-                .post(mainUrl + restAnnouncementUrl)
+                .get(mainUrl + restAnnouncementUrl)
                 .header(
                     "Accept" to "application/json",
                     "Content-type" to "application/json",
-                    "Authorization" to "Bearer: $token"
+                    "Authorization" to "Bearer $token"
                 )
                 .response()
 
-        val json = JsonParser().parse(String(response.data)).asJsonObject["announcements"].toString()
+        val json = JsonParser().parse(String(response.data)).asJsonObject["data"].toString()
         val gson = Gson()
-        val announcements = gson.fromJson(json, ResponseAnnouncementsModel::class.java)
+        val announcements = gson.fromJson(json, Array<AnnouncementResponse>::class.java).toList()
         return announcements
     }
 
-    fun postAnnouncement(announcement: Announcement): Boolean {
+    fun postAnnouncement(announcement: AnnouncementResponse): Boolean {
         var success = false
         val body = Gson().toJson(announcement)
 
-        Fuel.post(mainUrl + restAnnouncementUrl)
+        val (request, response, result) =
+        Fuel
+            .post(mainUrl + restAnnouncementUrl)
             .header(
                 "Content-type" to "application/json",
-                "Authorization" to "Bearer: $token"
+                "Authorization" to "Bearer $token"
             )
             .body(
                 body.toString()
             )
-            .responseObject<ResponseAnnouncementsModel> { _, _, result ->
-                result.fold({
-                    success = true
-                }, {
-                    success = false
-                })
-            }
-        return success
+            .response();
+        return response.statusCode == 200
     }
 
     fun deleteAnnouncements(id: Int): Boolean {
