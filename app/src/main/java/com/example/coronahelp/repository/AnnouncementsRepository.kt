@@ -23,12 +23,12 @@ class AnnouncementsRepository() {
      */
 
     fun getAnnouncementsFromREST(): List<AnnouncementResponse> {
-        return RestCaller.getAnnouncements()?.announcements ?: listOf<AnnouncementResponse>()
+        return RestCaller.getAnnouncements()
     }
 
     fun createAnnouncement(title: String, description: String, category: Category, location: LatLng, time: LocalDateTime): Boolean {
         val announcement = Announcement(title, description, category, location, time)
-        return RestCaller.postAnnouncement(announcement)
+        return RestCaller.postAnnouncement(getResponseFromAnnouncement(announcement))
     }
 
     fun deleteAnnouncement(id: Int): Boolean {
@@ -46,7 +46,17 @@ class AnnouncementsRepository() {
             response.description,
             response.category,
             LatLng(response.lat.toDouble(), response.long.toDouble()),
-            response.time
+            LocalDateTime.now() //TODO <- change THIS!!!!!!!
         )
+    }
+
+    private fun getResponseFromAnnouncement(announcement: Announcement) : AnnouncementResponse {
+        return AnnouncementResponse(
+            announcement.title,
+            announcement.description,
+            announcement.category,
+            announcement.location.latitude.toString(),
+            announcement.location.longitude.toString(),
+            announcement.time.toString())
     }
 }

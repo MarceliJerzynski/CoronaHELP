@@ -1,12 +1,13 @@
 package com.example.coronahelp
 
-import com.example.coronahelp.model.LoginParams
-import com.example.coronahelp.model.RegisterParams
+import com.example.coronahelp.model.*
 import com.example.coronahelp.rest.RestCaller
+import com.google.android.gms.maps.model.LatLng
 import junit.framework.Assert.assertNotNull
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
+import java.time.LocalDateTime
 import java.util.logging.Logger.getLogger
 
 class RestCallerSpec {
@@ -40,9 +41,29 @@ class RestCallerSpec {
     }
 
     @Test
+    fun shouldAddAnnouncement() {
+        val announcement = AnnouncementResponse(
+        "Potrzeba sanitarna",
+        "Potrzeba na szybko 10 rolek papieru toaletowego!!",
+        Category.TOILET_PAPER,
+        "52.00", "52.09",
+        LocalDateTime.now().toString())
+
+        val result = RestCaller.postAnnouncement(announcement)
+        assert(result)
+    }
+
+    @Test
     fun shouldGetAnnouncement() {
         val announcements = RestCaller.getAnnouncements();
         assertNotNull(announcements)
+        println("Our announcements: $announcements")
+    }
+
+    @Test
+    fun shouldGiveMeGoodFuckingFormatOfDate() {
+        val text = LocalDateTime.now().toString()
+        println(text)
     }
 
 }

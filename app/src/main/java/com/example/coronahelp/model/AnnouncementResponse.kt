@@ -15,5 +15,5 @@ class AnnouncementResponse(
     @SerializedName("long")
     val long: String,
     @SerializedName("deadline")
-    val time: LocalDateTime
+    val time: String
 )
