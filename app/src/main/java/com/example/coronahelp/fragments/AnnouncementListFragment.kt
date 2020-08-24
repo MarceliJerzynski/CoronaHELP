@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.announcement_list_fragment.*
 
 class AnnouncementListFragment : Fragment() {
 
-    private lateinit var viewModel: AnnouncementListViewModel
+    //private lateinit var viewModel: AnnouncementListViewModel
     private lateinit var announcementAdapter: AnnouncementRecyclerAdapter
 
     override fun onCreateView(
@@ -35,17 +35,18 @@ class AnnouncementListFragment : Fragment() {
     }
 
     private fun initRecyclerView(){
-        recycler_view.apply {
-            layoutManager = LinearLayoutManager(activity)
-            announcementAdapter =
-                AnnouncementRecyclerAdapter()
-            adapter = announcementAdapter
-        }
+//        recycler_view.apply {
+//            layoutManager = LinearLayoutManager(activity)
+//            announcementAdapter =
+//                AnnouncementRecyclerAdapter()
+//            adapter = announcementAdapter
+//        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(AnnouncementListViewModel::class.java)
+//        super.onActivityCreated(savedInstanceState)
+//        viewModel = ViewModelProviders.of(this).get(AnnouncementListViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

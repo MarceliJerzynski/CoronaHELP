@@ -14,10 +14,10 @@ class AnnouncementsService {
 
     fun createMarkers(map: GoogleMap) { //TODO ICONS
         //announcementsRepository.announcements.forEach { announcement ->
-        listOf<Announcement>(Announcement("SPRZEDAM OPLA", "OPIS", LatLng(0.0, 1.0), LocalDateTime.MAX)).forEach{ announcement ->
-            map.addMarker(MarkerOptions()
-                .position(announcement.location)
-                .title(announcement.title))
-        }
+//        listOf<Announcement>(Announcement("SPRZEDAM OPLA", "OPIS", LatLng(0.0, 1.0), LocalDateTime.MAX)).forEach{ announcement ->
+//            map.addMarker(MarkerOptions()
+//                .position(announcement.location)
+//                .title(announcement.title))
+//        }
     }
 }

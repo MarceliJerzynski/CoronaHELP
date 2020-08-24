@@ -1,19 +1,29 @@
 package com.example.coronahelp
 
 import android.Manifest
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.coronahelp.utils.Parameters
 import com.example.coronahelp.utils.PermissionUtils
 
+
 class MainActivity : AppCompatActivity() {
 
+    private val SHARED_PREF = "SHARED_PREF"
+
+    companion object {
+        @JvmStatic var preferences: SharedPreferences? = null
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        preferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             == PackageManager.PERMISSION_GRANTED

@@ -6,13 +6,9 @@ import com.google.gson.annotations.SerializedName
 import java.time.LocalDateTime
 
 class Announcement(
-    @SerializedName("title")
     val title: String,
-    @SerializedName("description")
     val description: String?,
-    @SerializedName("location")
+    val category: Category,
     val location: LatLng,
-    @SerializedName("time")
     val time: LocalDateTime
-    //val person: Person
 )
