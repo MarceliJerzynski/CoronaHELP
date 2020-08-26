@@ -2,19 +2,18 @@ package com.example.coronahelp
 
 import com.example.coronahelp.model.*
 import com.example.coronahelp.rest.RestCaller
-import com.google.android.gms.maps.model.LatLng
 import junit.framework.Assert.assertNotNull
 import org.junit.Before
-import org.junit.BeforeClass
 import org.junit.Test
 import java.time.LocalDateTime
-import java.util.logging.Logger.getLogger
 
 class RestCallerSpec {
 
     /**
      *  this test is not mocked, so every run will create database record
      *  also because of this every time you run it you have to change email variable.
+     *  -------IMPORTANT-------
+     *  these tests should be runned only by someone who knows what it does, because its changing DB!!!!
      */
 //    @Test
 //    fun shouldRegister() {
@@ -43,9 +42,11 @@ class RestCallerSpec {
     @Test
     fun shouldAddAnnouncement() {
         val announcement = AnnouncementResponse(
+            1,
         "Potrzeba sanitarna",
         "Potrzeba na szybko 10 rolek papieru toaletowego!!",
         Category.TOILET_PAPER,
+            30.0,
         "52.00", "52.09",
         LocalDateTime.now().toString())
 
@@ -61,9 +62,25 @@ class RestCallerSpec {
     }
 
     @Test
-    fun shouldGiveMeGoodFuckingFormatOfDate() {
-        val text = LocalDateTime.now().toString()
-        println(text)
+    fun shouldPatchAnnounecement() {
+        val announcement = AnnouncementResponse(
+            1,
+            "Potrzeba sanitarna",
+            "Potrzeba na szybko 10 rolek srajtaśmy!!",
+            Category.TOILET_PAPER,
+            30.0,
+            "52.00", "52.09",
+            LocalDateTime.now().toString())
+
+        val result = RestCaller.patchAnnouncements(announcement)
+        assert(result)
+    }
+
+    @Test
+    fun shouldDelete() {
+        val id = 1;
+        val result = RestCaller.deleteAnnouncements(id)
+        assert(result)
     }
 
 }

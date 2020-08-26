@@ -44,13 +44,13 @@ object RestCaller {
     }
 
     fun postAnnouncement(announcement: AnnouncementResponse): Boolean {
-        var success = false
         val body = Gson().toJson(announcement)
 
         val (request, response, result) =
         Fuel
             .post(mainUrl + restAnnouncementUrl)
             .header(
+                "Accept" to "application/json",
                 "Content-type" to "application/json",
                 "Authorization" to "Bearer $token"
             )
@@ -62,43 +62,33 @@ object RestCaller {
     }
 
     fun deleteAnnouncements(id: Int): Boolean {
-        var success = false
-
-        Fuel.post(mainUrl + restAnnouncementUrl + id)
+        val (request, response, result) =
+        Fuel.delete(mainUrl + restAnnouncementUrl + "/" + id)
             .header(
+                "Accept" to "application/json",
                 "Content-type" to "application/json",
-                "Authorization" to "Bearer: $token"
+                "Authorization" to "Bearer $token"
             )
-            .responseObject<ResponseAnnouncementsModel> { _, _, result ->
-                result.fold({
-                    success = true
-                }, {
-                    success = false
-                })
-            }
-        return success
+            .response()
+        return response.statusCode == 200
     }
 
-    fun patchAnnouncements(id: Int, announcement: Announcement): Boolean {
+    fun patchAnnouncements(announcement: AnnouncementResponse): Boolean {
         var success = false
         val body = Gson().toJson(announcement)
 
-        Fuel.post(mainUrl + restAnnouncementUrl + id)
+        val (request, response, result) =
+        Fuel.patch(mainUrl + restAnnouncementUrl + "/" + announcement.id)
             .header(
+                "Accept" to "application/json",
                 "Content-type" to "application/json",
-                "Authorization" to "Bearer: $token"
+                "Authorization" to "Bearer $token"
             )
             .body(
                 body.toString()
             )
-            .responseObject<ResponseAnnouncementsModel> { _, _, result ->
-                result.fold({
-                    success = true
-                }, {
-                    success = false
-                })
-            }
-        return success
+            .response()
+        return response.statusCode == 204;
     }
 
     fun postRegister(params: RegisterParams): Boolean{
