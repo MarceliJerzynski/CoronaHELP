@@ -7,7 +7,7 @@ import org.junit.Before
 import org.junit.Test
 import java.time.LocalDateTime
 
-class RestCallerSpec {
+class RestCallerTest {
 
     /**
      *  this test is not mocked, so every run will create database record

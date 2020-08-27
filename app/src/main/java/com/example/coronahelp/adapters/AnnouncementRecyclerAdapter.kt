@@ -54,7 +54,7 @@ class AnnouncementRecyclerAdapter(private var items:List<Announcement>) : Recycl
                 title.text = announcement.title
                 description.text = announcement.description
                 reward.text = announcement.reward.toString()
-                user_name.text = "test user"
+                user_name.text = "test user" //TODO user in annoucments
             }
 
         }

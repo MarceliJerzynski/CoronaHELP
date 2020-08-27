@@ -1,22 +1,31 @@
 package com.example.coronahelp.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.coronahelp.model.Announcement
 import com.example.coronahelp.model.AnnouncementResponse
 import com.example.coronahelp.model.Category
 import com.example.coronahelp.rest.RestCaller
 import com.google.android.gms.maps.model.LatLng
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
 class AnnouncementsRepository() {
 
     //private val restCaller = RestCaller()
-    var announcements: MutableList<Announcement>
+    var announcements: MutableLiveData<List<Announcement>> = MutableLiveData()
 
     init {
-        announcements = mutableListOf()
-        getAnnouncementsFromREST().forEach{ announcement ->
-            announcements.add(getAnnouncementFromResponse(announcement))
+        val ann = mutableListOf<Announcement>()
+
+        GlobalScope.launch {
+            getAnnouncementsFromREST().forEach{ announcement ->
+                ann.add(getAnnouncementFromResponse(announcement)) //TODO mówiłem Ci pało żebyś zrobił rzutowanie gdzie indziej
+            }
         }
+
+        announcements.value = ann
     }
     /**
      * use restCaller to call GET method and return list of announcements

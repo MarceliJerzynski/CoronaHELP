@@ -45,5 +45,10 @@
         <action
             android:id="@+id/action_mapsFragment_to_createAnnouncement2"
             app:destination="@id/createAnnouncement2" />
+        <action
+            android:id="@+id/action_mapsFragment_to_login"
+            app:destination="@id/login"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit" />
     </fragment>
 </navigation>

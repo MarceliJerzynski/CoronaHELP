@@ -12,6 +12,6 @@ class MapsFragmentViewModel : ViewModel() {
     var announcements : MutableLiveData<List<Announcement>> = MutableLiveData()
 
     init{
-        announcements.value = repo.announcements
+        announcements = repo.announcements
     }
 }

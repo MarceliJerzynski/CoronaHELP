@@ -11,11 +11,13 @@ import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.colorgreen.swiper.OnSwipeTouchListener
 import com.colorgreen.swiper.SwipeAction
 import com.colorgreen.swiper.SwipeActionListener
+import com.example.coronahelp.MainActivity
 import com.example.coronahelp.R
 import com.example.coronahelp.adapters.AnnouncementRecyclerAdapter
 import com.example.coronahelp.model.Announcement
@@ -42,50 +44,61 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        //TODO if no internet access, show dialog
+        if (!isUserLogged()!!) {
+            view.findNavController().navigate(R.id.action_mapsFragment_to_login)
+        } else {
 
-        val layoutManager = LinearLayoutManager(activity)
-        val announcements: List<Announcement> = generateAnnouncementList()
-        recycler_view.layoutManager = layoutManager
-        recycler_view.adapter = AnnouncementRecyclerAdapter(announcements)
 
-        val model: MapsFragmentViewModel by viewModels()
-//        model.announcements.observe( viewLifecycleOwner, Observer {
-//            (recycler_view.adapter as AnnouncementRecyclerAdapter).submitList(it)
-//        })
+            //TODO if no internet access, show dialog
 
-        val listener = OnSwipeTouchListener()
+            val layoutManager = LinearLayoutManager(activity)
+            val announcements: List<Announcement> = generateAnnouncementList()
+            recycler_view.layoutManager = layoutManager
+            recycler_view.adapter = AnnouncementRecyclerAdapter(announcements)
 
-        view.viewTreeObserver.addOnGlobalLayoutListener(object :
-            ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                view.viewTreeObserver.removeOnGlobalLayoutListener(this);
+            val model: MapsFragmentViewModel by viewModels()
+            model.announcements.observe(viewLifecycleOwner, Observer {
+                (recycler_view.adapter as AnnouncementRecyclerAdapter).submitList(it)
+            })
 
-                val targetHeight = view.height.toFloat()
-                bottom_panel.y = targetHeight - 500
+            val listener = OnSwipeTouchListener()
 
-                recycler_view_ll.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    (targetHeight - 200).toInt()
-                )
+            view.viewTreeObserver.addOnGlobalLayoutListener(object :
+                ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    view.viewTreeObserver.removeOnGlobalLayoutListener(this);
 
-                val swipeAction = SwipeAction()
-                swipeAction.direction = SwipeAction.DragDirection.Up
-                swipeAction.setSteps(floatArrayOf(bottom_panel.y, 300f))
-                swipeAction.swipeActionListener = object : SwipeActionListener {
-                    override fun onDragStart(value: Float, totalFriction: Float) {}
-                    override fun onDragEnd(p0: Float, p1: Float) {}
+                    val targetHeight = view.height.toFloat()
+                    bottom_panel.y = targetHeight - 500
 
-                    override fun onDrag(value: Float, friction: Float) {
-                        bottom_panel.setY(value)
+                    recycler_view_ll.layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        (targetHeight - 200).toInt()
+                    )
+
+                    val swipeAction = SwipeAction()
+                    swipeAction.direction = SwipeAction.DragDirection.Up
+                    swipeAction.setSteps(floatArrayOf(bottom_panel.y, 300f))
+                    swipeAction.swipeActionListener = object : SwipeActionListener {
+                        override fun onDragStart(value: Float, totalFriction: Float) {}
+                        override fun onDragEnd(p0: Float, p1: Float) {}
+
+                        override fun onDrag(value: Float, friction: Float) {
+                            bottom_panel.setY(value)
+                        }
                     }
+
+                    listener.addAction(swipeAction)
                 }
+            })
 
-                listener.addAction(swipeAction)
-            }
-        })
+            listener.attachToView(bottom_panel)
+        }
+    }
 
-        listener.attachToView(bottom_panel)
+
+    private fun isUserLogged(): Boolean? {
+        return MainActivity.preferences?.contains("Token")
     }
 
     private fun showOrHideView(view: View?, isShow: Boolean) {

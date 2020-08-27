@@ -47,29 +47,29 @@ object RestCaller {
         val body = Gson().toJson(announcement)
 
         val (request, response, result) =
-        Fuel
-            .post(mainUrl + restAnnouncementUrl)
-            .header(
-                "Accept" to "application/json",
-                "Content-type" to "application/json",
-                "Authorization" to "Bearer $token"
-            )
-            .body(
-                body.toString()
-            )
-            .response();
+            Fuel
+                .post(mainUrl + restAnnouncementUrl)
+                .header(
+                    "Accept" to "application/json",
+                    "Content-type" to "application/json",
+                    "Authorization" to "Bearer $token"
+                )
+                .body(
+                    body.toString()
+                )
+                .response();
         return response.statusCode == 201
     }
 
     fun deleteAnnouncements(id: Int): Boolean {
         val (request, response, result) =
-        Fuel.delete(mainUrl + restAnnouncementUrl + "/" + id)
-            .header(
-                "Accept" to "application/json",
-                "Content-type" to "application/json",
-                "Authorization" to "Bearer $token"
-            )
-            .response()
+            Fuel.delete(mainUrl + restAnnouncementUrl + "/" + id)
+                .header(
+                    "Accept" to "application/json",
+                    "Content-type" to "application/json",
+                    "Authorization" to "Bearer $token"
+                )
+                .response()
         return response.statusCode == 200
     }
 
@@ -78,20 +78,20 @@ object RestCaller {
         val body = Gson().toJson(announcement)
 
         val (request, response, result) =
-        Fuel.patch(mainUrl + restAnnouncementUrl + "/" + announcement.id)
-            .header(
-                "Accept" to "application/json",
-                "Content-type" to "application/json",
-                "Authorization" to "Bearer $token"
-            )
-            .body(
-                body.toString()
-            )
-            .response()
+            Fuel.patch(mainUrl + restAnnouncementUrl + "/" + announcement.id)
+                .header(
+                    "Accept" to "application/json",
+                    "Content-type" to "application/json",
+                    "Authorization" to "Bearer $token"
+                )
+                .body(
+                    body.toString()
+                )
+                .response()
         return response.statusCode == 204;
     }
 
-    fun postRegister(params: RegisterParams): Boolean{
+    fun postRegister(params: RegisterParams): Boolean {
         val paramsJson = Gson().toJson(params)
         var success = false
 
@@ -107,21 +107,27 @@ object RestCaller {
         return response.isSuccessful
     }
 
-    fun postLogin(params: LoginParams): String? {
+    suspend fun postLogin(params: LoginParams): Boolean {
         var paramsJson = Gson().toJson(params)
         val (request, response, result) =
-        Fuel
-            .post(mainUrl + restLoginUrl)
-            .header(
-                "Accept" to "application/json",
-                "Content-type" to "application/json"
-            )
-            .body(paramsJson.toString())
-            .response()
-        token = JsonParser().parse(String(response.data)).asJsonObject["token"].toString()
-        token = token.drop(1).dropLast(1)
-        saveToken()
-        return token
+            Fuel
+                .post(mainUrl + restLoginUrl)
+                .header(
+                    "Accept" to "application/json",
+                    "Content-type" to "application/json"
+                )
+                .body(paramsJson.toString())
+                .response()
+
+        result.fold({
+            token = JsonParser().parse(String(response.data)).asJsonObject["token"].toString()
+            token = token.drop(1).dropLast(1)
+            saveToken()
+            return true
+        }, {
+
+            return false
+        })
     }
 
     private fun saveToken() {

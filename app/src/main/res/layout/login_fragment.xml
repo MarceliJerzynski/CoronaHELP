@@ -10,22 +10,25 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center">
+
         <EditText
             android:id="@+id/editTextLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ems="10"
             android:hint="Login"
-            android:ems="10"/>
+            android:text="admin@admin.pl" />
 
         <EditText
             android:id="@+id/editTextPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:ems="10"
-            android:hint="Password"/>
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:text="admin123" />
 
         <Button
             android:id="@+id/buttonLogin"
