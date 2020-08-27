@@ -101,11 +101,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         return MainActivity.preferences?.contains("Token")
     }
 
-    private fun showOrHideView(view: View?, isShow: Boolean) {
-        requireView().animate().alpha(if (isShow) 1f else 0f).setDuration(100)
-            .interpolator = DecelerateInterpolator()
-    }
-
     private fun generateAnnouncementList(): MutableList<Announcement> {
         announcementList = ArrayList()
 
@@ -126,11 +121,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         return announcementList
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v: View = inflater.inflate(R.layout.fragment_maps, container, false)
 
         mapView = v.findViewById<MapView>(R.id.mapView)
