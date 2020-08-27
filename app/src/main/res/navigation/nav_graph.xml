@@ -10,12 +10,18 @@
         android:name="com.example.coronahelp.fragments.LoginFragment"
         android:label="login_fragment"
         tools:layout="@layout/login_fragment" >
+        <action
+            android:id="@+id/action_login_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
     <fragment
         android:id="@+id/register"
         android:name="com.example.coronahelp.fragments.RegisterFragment"
         android:label="register_fragment"
         tools:layout="@layout/register_fragment" >
+        <action
+            android:id="@+id/action_register_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
     <fragment
         android:id="@+id/createAnnouncement2"
@@ -36,5 +42,8 @@
             android:id="@+id/action_mapsFragment_to_announcementList"
             app:destination="@id/announcementList"
             app:enterAnim="@anim/fragment_fade_enter" />
+        <action
+            android:id="@+id/action_mapsFragment_to_createAnnouncement2"
+            app:destination="@id/createAnnouncement2" />
     </fragment>
 </navigation>
