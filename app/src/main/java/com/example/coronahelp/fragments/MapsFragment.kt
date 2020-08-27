@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.animation.DecelerateInterpolator
+import android.widget.LinearLayout
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.colorgreen.swiper.OnSwipeTouchListener
 import com.colorgreen.swiper.SwipeAction
 import com.colorgreen.swiper.SwipeActionListener
@@ -61,10 +64,14 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                 val targetHeight = view.height.toFloat()
                 bottom_panel.y = targetHeight - 500
 
+                recycler_view_ll.layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    (targetHeight - 200).toInt()
+                )
+
                 val swipeAction = SwipeAction()
                 swipeAction.direction = SwipeAction.DragDirection.Up
                 swipeAction.setSteps(floatArrayOf(bottom_panel.y, 300f))
-
                 swipeAction.swipeActionListener = object : SwipeActionListener {
                     override fun onDragStart(value: Float, totalFriction: Float) {}
                     override fun onDragEnd(p0: Float, p1: Float) {}
@@ -89,7 +96,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     private fun generateAnnouncementList(): MutableList<Announcement> {
         announcementList = ArrayList()
 
-        for (i in 0..6) {
+        for (i in 0..7) {
             announcementList.add(
                 Announcement(
                     1,
