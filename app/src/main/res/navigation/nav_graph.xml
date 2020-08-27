@@ -29,18 +29,18 @@
         android:label="create_announcement_fragment"
         tools:layout="@layout/create_announcement_fragment" />
     <fragment
-        android:id="@+id/announcementList"
-        android:name="com.example.coronahelp.fragments.AnnouncementListFragment"
-        android:label="announcement_list_fragment"
-        tools:layout="@layout/announcement_list_fragment" />
+        android:id="@+id/announcementFragment"
+        android:name="com.example.coronahelp.fragments.AnnouncementFragment"
+        android:label="announcement_fragment"
+        tools:layout="@layout/announcement_fragment" />
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.example.coronahelp.fragments.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" >
         <action
-            android:id="@+id/action_mapsFragment_to_announcementList"
-            app:destination="@id/announcementList"
+            android:id="@+id/action_mapsFragment_to_announcementFragment"
+            app:destination="@id/announcementFragment"
             app:enterAnim="@anim/fragment_fade_enter" />
         <action
             android:id="@+id/action_mapsFragment_to_createAnnouncement2"
