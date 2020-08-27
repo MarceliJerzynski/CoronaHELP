@@ -26,8 +26,8 @@ class AnnouncementsRepository() {
         return RestCaller.getAnnouncements()
     }
 
-    fun createAnnouncement(title: String, description: String, category: Category, location: LatLng, time: LocalDateTime): Boolean {
-        val announcement = Announcement(title, description, category, location, time)
+    fun createAnnouncement(title: String, description: String, category: Category, reward: Double, location: LatLng, time: LocalDateTime): Boolean {
+        val announcement = Announcement(0, title, description, category, reward, location, time)
         return RestCaller.postAnnouncement(getResponseFromAnnouncement(announcement))
     }
 
@@ -35,16 +35,18 @@ class AnnouncementsRepository() {
         return RestCaller.deleteAnnouncements(id)
     }
 
-    fun updateAnnouncement(id: Int, title: String, description: String, category: Category, location: LatLng, time: LocalDateTime): Boolean {
-        val announcement = Announcement(title, description, category, location, time)
-        return RestCaller.patchAnnouncements(id, announcement)
+    fun updateAnnouncement(id: Int, title: String, description: String, category: Category, reward: Double, location: LatLng, time: LocalDateTime): Boolean {
+        val announcement = Announcement(id, title, description, category, reward, location, time)
+        return RestCaller.patchAnnouncements(getResponseFromAnnouncement(announcement))
     }
 
     private fun getAnnouncementFromResponse(response: AnnouncementResponse): Announcement {
         return Announcement(
+            response.id,
             response.title,
             response.description,
             response.category,
+            response.reward,
             LatLng(response.lat.toDouble(), response.long.toDouble()),
             LocalDateTime.now() //TODO <- change THIS!!!!!!!
         )
@@ -52,9 +54,11 @@ class AnnouncementsRepository() {
 
     private fun getResponseFromAnnouncement(announcement: Announcement) : AnnouncementResponse {
         return AnnouncementResponse(
+            announcement.id,
             announcement.title,
             announcement.description,
             announcement.category,
+            announcement.reward,
             announcement.location.latitude.toString(),
             announcement.location.longitude.toString(),
             announcement.time.toString())

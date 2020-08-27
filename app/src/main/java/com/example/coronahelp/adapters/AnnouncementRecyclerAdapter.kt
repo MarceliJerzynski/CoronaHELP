@@ -1,5 +1,6 @@
 package com.example.coronahelp.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +11,12 @@ import com.example.coronahelp.model.Announcement
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.layout_announcement_list_item.view.*
 
-class AnnouncementRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-    private var items: List<Announcement> = ArrayList()
+class AnnouncementRecyclerAdapter(private var items:List<Announcement>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+    //private var items: List<Announcement> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return AnnouncementViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.layout_announcement_list_item,
-                parent,
-                false
-            )
+            LayoutInflater.from(parent.context).inflate(R.layout.layout_announcement_list_item, parent, false)
         )
     }
     override fun getItemCount(): Int {
@@ -37,9 +34,7 @@ class AnnouncementRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder
         items = announcementList
     }
 
-    class AnnouncementViewHolder constructor(
-        itemView: View
-    ): RecyclerView.ViewHolder(itemView){
+    class AnnouncementViewHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView){
         val announcementTitle = itemView.announcement_title
         val announcementDesc = itemView.announcement_desc
         val announcementLocalization = itemView.announcement_localization
@@ -49,6 +44,7 @@ class AnnouncementRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder
             itemView.setOnClickListener {
                 itemView.findNavController().navigate(R.id.action_mapsFragment_to_announcementList)
             }
+
         }
 
         fun bind(announcement: Announcement){
@@ -58,7 +54,4 @@ class AnnouncementRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder
             announcementTime.setText(announcement.time.toString())
         }
     }
-
-
-
 }
