@@ -41,7 +41,15 @@
         android:id="@+id/createAnnouncement2"
         android:name="com.example.coronahelp.fragments.CreateAnnouncementFragment"
         android:label="create_announcement_fragment"
-        tools:layout="@layout/create_announcement_fragment" />
+        tools:layout="@layout/create_announcement_fragment" >
+        <action
+            android:id="@+id/action_createAnnouncement2_to_mapsFragment"
+            app:destination="@id/mapsFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
     <fragment
         android:id="@+id/announcementFragment"
         android:name="com.example.coronahelp.fragments.AnnouncementFragment"
@@ -58,7 +66,11 @@
             app:enterAnim="@anim/fragment_fade_enter" />
         <action
             android:id="@+id/action_mapsFragment_to_createAnnouncement2"
-            app:destination="@id/createAnnouncement2" />
+            app:destination="@id/createAnnouncement2"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_mapsFragment_to_login"
             app:destination="@id/login"

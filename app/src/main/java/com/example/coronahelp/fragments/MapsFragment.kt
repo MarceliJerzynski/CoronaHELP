@@ -43,6 +43,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     private var isShowingCardHeaderShadow: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        fab_add.setOnClickListener{
+            view.findNavController().navigate(R.id.action_mapsFragment_to_createAnnouncement2)
+        }
+
 
         if (!isUserLogged()!!) {
             view.findNavController().navigate(R.id.action_mapsFragment_to_login)

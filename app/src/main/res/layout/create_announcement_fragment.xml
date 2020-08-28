@@ -1,46 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
     tools:context=".fragments.CreateAnnouncementFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center">
-        <EditText
-            android:id="@+id/editTextRegisterLogin"
-            android:layout_width="wrap_content"
+        android:gravity="center_horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlinedTextFieldTitle"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
             android:hint="Title"
-            android:ems="15"/>
-        <EditText
-            android:id="@+id/editTextRegisterName"
-            android:layout_width="wrap_content"
+            android:padding="4dp"
+            android:textColorHint="#4f4f4f"
+            app:hintTextColor="#4f4f4f"
+            app:shapeAppearance="@style/ShapeAppearance.TextFields">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#4f4f4f"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlinedTextFieldDesc"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="150dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
             android:hint="Description"
-            android:ems="15"
-            android:gravity="top"
-            />
+            android:padding="4dp"
+            app:shapeAppearance="@style/ShapeAppearance.TextFields"
+            android:textColorHint="#4f4f4f"
+            app:hintTextColor="#4f4f4f">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#4f4f4f"
+                android:gravity="top"
+                android:minHeight="120dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/outlinedTextFieldReward"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:hint="Reward"
+                app:shapeAppearance="@style/ShapeAppearance.TextFields"
+                app:suffixText="zł"
+                android:textColorHint="#4f4f4f"
+                app:hintTextColor="#4f4f4f"
+                app:suffixTextColor="#4f4f4f">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#4f4f4f"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/outlinedCategoryDropdownMenu"
+                style="@style/DropdownLayoutStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="Category"
+                android:padding="4dp"
+                app:shapeAppearance="@style/ShapeAppearance.TextFields"
+                android:textColorHint="#4f4f4f"
+                app:hintTextColor="#4f4f4f">
+
+                <AutoCompleteTextView
+                    android:id="@+id/filled_exposed_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#4f4f4f"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlinedTextFieldLocation"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:hint="Location"
+            android:padding="4dp"
+            app:shapeAppearance="@style/ShapeAppearance.TextFields"
+            android:textColorHint="#4f4f4f"
+            app:hintTextColor="#4f4f4f">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#4f4f4f"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlinedTextFieldDateTime"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:hint="Date &amp; time"
+            android:padding="4dp"
+            app:shapeAppearance="@style/ShapeAppearance.TextFields"
+            android:textColorHint="#4f4f4f"
+            app:hintTextColor="#4f4f4f">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#4f4f4f"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center">
-            <Button
+            android:gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:padding="10dp">
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonCreateAnnouncement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/button_background"
                 android:text="Create"/>
-            <Button
-                android:id="@+id/buttonCancelCreateAnnouncement"
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonCancelAnnouncement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/button_background"
                 android:text="Cancel"/>
         </LinearLayout>
     </LinearLayout>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

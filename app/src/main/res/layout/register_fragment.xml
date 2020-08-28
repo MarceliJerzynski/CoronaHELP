@@ -30,8 +30,8 @@
             android:drawableStart="@drawable/ic_email_black_24dp"
             android:drawablePadding="8dp"
             android:hint="Email"
-            android:textColor="#1FFFFF"
-            android:textColorHint="#1FFFFF"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent"
             android:background="@drawable/login_edit_background"
             android:padding="10dp"/>
 
@@ -45,8 +45,8 @@
             android:drawableStart="@drawable/ic_person_black_24dp"
             android:drawablePadding="8dp"
             android:hint="Name"
-            android:textColor="#1FFFFF"
-            android:textColorHint="#1FFFFF"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent"
             android:background="@drawable/login_edit_background"
             android:padding="10dp"/>
 
@@ -60,8 +60,8 @@
             android:drawableStart="@drawable/ic_person_black_24dp"
             android:drawablePadding="8dp"
             android:hint="Surname"
-            android:textColor="#1FFFFF"
-            android:textColorHint="#1FFFFF"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent"
             android:background="@drawable/login_edit_background"
             android:padding="10dp"/>
 
@@ -75,8 +75,8 @@
             android:drawableStart="@drawable/ic_lock_outline_black_24dp"
             android:drawablePadding="8dp"
             android:inputType="textPassword"
-            android:textColor="#1FFFFF"
-            android:textColorHint="#1FFFFF"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent"
             android:background="@drawable/login_edit_background"
             android:padding="10dp"
             android:hint="Password"/>
@@ -91,8 +91,8 @@
             android:inputType="textPassword"
             android:drawableStart="@drawable/ic_check_black_24dp"
             android:drawablePadding="8dp"
-            android:textColor="#1FFFFF"
-            android:textColorHint="#1FFFFF"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent"
             android:background="@drawable/login_edit_background"
             android:padding="10dp"
             android:hint="Confirm password"/>
@@ -111,6 +111,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Already an user? Sign In!"
-            android:textColor="#1FFFFF"/>
+            android:textColor="#4f4f4f"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

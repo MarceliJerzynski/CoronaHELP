@@ -31,7 +31,7 @@
             android:drawablePadding="8dp"
             android:hint="Login"
             android:text="admin@admin.pl"
-            android:textColor="#1FFFFF"
+            android:textColor="@color/colorAccent"
             android:background="@drawable/login_edit_background"
             android:padding="10dp"/>
 
@@ -50,7 +50,7 @@
             android:padding="10dp"
             android:inputType="textPassword"
             android:text="admin123"
-            android:textColor="#1FFFFF"/>
+            android:textColor="@color/colorAccent"/>
 
         <Button
             android:id="@+id/buttonLogin"
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Don't have an account? Sign Up"
-            android:textColor="#1FFFFF"/>
+            android:textColor="#4f4f4f"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
