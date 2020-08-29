@@ -107,7 +107,7 @@ object RestCaller {
         return response.isSuccessful
     }
 
-    suspend fun postLogin(params: LoginParams): Boolean {
+    fun postLogin(params: LoginParams): Boolean {
         var paramsJson = Gson().toJson(params)
         val (request, response, result) =
             Fuel
@@ -125,7 +125,6 @@ object RestCaller {
             saveToken()
             return true
         }, {
-
             return false
         })
     }

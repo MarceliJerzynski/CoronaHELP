@@ -5,15 +5,24 @@ import com.example.coronahelp.model.LoginParams
 import com.example.coronahelp.model.RegisterParams
 import com.example.coronahelp.rest.RestCaller
 import com.example.coronahelp.utils.ScreenUtils.showMessage
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class UserRepository {
-//
-//    fun login(email: String, password: String): Boolean {
-//        val params = LoginParams(email, password, Build.MODEL)
-//        val token = RestCaller.postLogin(params)
-//        return token != null
-//    }
-//
+
+    fun login(email: String, password: String): Boolean {
+        val params = LoginParams(email, password, Build.MODEL)
+
+        var token = false
+        runBlocking {
+            GlobalScope.launch {
+                token = RestCaller.postLogin(params)
+            }
+        }
+        return token
+    }
+
 //    fun register(name: String, email: String, password: String, passwordConfirmation: String): Boolean {
 //        val params = RegisterParams(name, email, password, passwordConfirmation)
 //        return RestCaller.postRegister(params)
