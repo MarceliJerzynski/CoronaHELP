@@ -22,6 +22,7 @@ import com.example.coronahelp.R
 import com.example.coronahelp.adapters.AnnouncementRecyclerAdapter
 import com.example.coronahelp.model.Announcement
 import com.example.coronahelp.model.Category
+import com.example.coronahelp.rest.RestCaller
 import com.example.coronahelp.viewModels.MapsFragmentViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -47,6 +48,12 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
             view.findNavController().navigate(R.id.action_mapsFragment_to_createAnnouncement2)
         }
 
+        button_logout.setOnClickListener{
+            view.findNavController().navigate(R.id.action_mapsFragment_to_login)
+            MainActivity.preferences?.edit()?.apply {
+                putString("Token", null)
+            }?.apply()
+        }
 
         if (!isUserLogged()!!) {
             view.findNavController().navigate(R.id.action_mapsFragment_to_login)
