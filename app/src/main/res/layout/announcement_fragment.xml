@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="32dp"
+    android:background="@drawable/background_gradient"
     tools:context=".fragments.AnnouncementFragment">
 
     <TextView
@@ -16,7 +17,9 @@
         android:textColor="#000"
         android:textSize="19sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="10dp"
+        android:layout_marginEnd="70dp"/>
 
     <TextView
         android:id="@+id/reward"
@@ -24,6 +27,7 @@
         android:layout_height="24dp"
         android:gravity="center_vertical"
         android:text="23"
+        android:textColor="#000"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,11 +43,15 @@
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:text="Description"
+        android:textColor="#000"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:background="@drawable/announcement_details_background"
+        android:padding="16dp"
+        android:minHeight="130dp"/>
 
     <TextView
         android:id="@+id/user_name"
@@ -51,9 +59,44 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Username"
+        android:textColor="#000"
         android:textSize="15sp"
         app:layout_constraintTop_toBottomOf="@id/reward"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Location"
+        android:textColor="#000"
+        app:layout_constraintTop_toBottomOf="@id/description"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/announcement_details_background"
+        android:layout_marginTop="10dp"
+        android:padding="16dp"/>
+
+    <TextView
+        android:id="@+id/dateAndTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date and time"
+        android:textColor="#000"
+        app:layout_constraintTop_toBottomOf="@id/location"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/announcement_details_background"
+        android:layout_marginTop="10dp"
+        android:padding="16dp"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dateAndTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/button_background"
+        android:text="Contact with author"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

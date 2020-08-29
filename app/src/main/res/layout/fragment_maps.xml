@@ -15,7 +15,7 @@
         android:id="@+id/bottom_panel"
         android:layout_width="match_parent"
         android:layout_height="1000dp"
-        android:background="#FFF"
+        android:background="@drawable/recycler_background_shape"
         android:orientation="vertical">
 
         <TextView
@@ -23,7 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_marginBottom="70dp"
-            android:text="Pobliskie ogłoszenia"
+            android:text="Nearby announcements"
+            android:textColor="#4f4f4f"
             android:textSize="26sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -50,7 +51,7 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_add_white_24dp" />
+        app:srcCompat="@drawable/ic_add_white_24dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -43,6 +43,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     private var isShowingCardHeaderShadow: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        fab_add.setOnClickListener{
+            view.findNavController().navigate(R.id.action_mapsFragment_to_createAnnouncement2)
+        }
+
 
         if (!isUserLogged()!!) {
             view.findNavController().navigate(R.id.action_mapsFragment_to_login)
@@ -101,11 +105,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         return MainActivity.preferences?.contains("Token")
     }
 
-    private fun showOrHideView(view: View?, isShow: Boolean) {
-        requireView().animate().alpha(if (isShow) 1f else 0f).setDuration(100)
-            .interpolator = DecelerateInterpolator()
-    }
-
     private fun generateAnnouncementList(): MutableList<Announcement> {
         announcementList = ArrayList()
 
@@ -126,11 +125,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         return announcementList
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v: View = inflater.inflate(R.layout.fragment_maps, container, false)
 
         mapView = v.findViewById<MapView>(R.id.mapView)
