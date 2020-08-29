@@ -12,14 +12,12 @@
     </style>
     <style name="ShapeAppearance.TextFields" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">16dp</item>
+        <item name="cornerSize">6dp</item>
     </style>
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/text_input_box_stroke</item>
-        <item name="boxStrokeWidth">2dp</item>
     </style>
     <style name="DropdownLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
         <item name="boxStrokeColor">@color/text_input_box_stroke</item>
-        <item name="boxStrokeWidth">2dp</item>
     </style>
 </resources>

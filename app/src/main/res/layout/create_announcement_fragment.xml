@@ -13,19 +13,29 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center_horizontal">
-
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center_vertical"
+            android:text="Add announcement"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:background="@color/colorAccent"
+            android:paddingStart="30dp"/>
+        
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/outlinedTextFieldTitle"
-            style="@style/TextInputLayoutStyle"
+            android:id="@+id/filledTextFieldTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="20dp"
+            android:background="@drawable/announcement_details_background"
             android:hint="Title"
-            android:padding="4dp"
-            android:textColorHint="#4f4f4f"
-            app:hintTextColor="#4f4f4f"
+            android:textColorHint="@color/colorGrey"
+            app:hintTextColor="@color/colorGrey"
+            style="@style/TextInputLayoutStyle"
             app:shapeAppearance="@style/ShapeAppearance.TextFields">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -36,25 +46,26 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/outlinedTextFieldDesc"
-            style="@style/TextInputLayoutStyle"
+            android:id="@+id/filledTextFieldDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
+            android:background="@drawable/announcement_details_background"
             android:hint="Description"
-            android:padding="4dp"
-            app:shapeAppearance="@style/ShapeAppearance.TextFields"
-            android:textColorHint="#4f4f4f"
-            app:hintTextColor="#4f4f4f">
+            android:textColorHint="@color/colorGrey"
+            app:hintTextColor="@color/colorGrey"
+            style="@style/TextInputLayoutStyle"
+            app:shapeAppearance="@style/ShapeAppearance.TextFields">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#4f4f4f"
                 android:gravity="top"
-                android:minHeight="120dp" />
+                android:minHeight="120dp"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -62,24 +73,26 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/outlinedTextFieldReward"
-                style="@style/TextInputLayoutStyle"
+                android:id="@+id/filledTextFieldReward"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/announcement_details_background"
                 android:hint="Reward"
-                app:shapeAppearance="@style/ShapeAppearance.TextFields"
-                app:suffixText="zł"
-                android:textColorHint="#4f4f4f"
-                app:hintTextColor="#4f4f4f"
-                app:suffixTextColor="#4f4f4f">
+                android:textColorHint="@color/colorGrey"
+                app:hintTextColor="@color/colorGrey"
+                style="@style/TextInputLayoutStyle"
+                app:shapeAppearance="@style/ShapeAppearance.TextFields">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#4f4f4f"/>
+                    android:textColor="@color/colorGrey"
+                    android:inputType="number"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,60 +101,64 @@
                 style="@style/DropdownLayoutStyle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/announcement_details_background"
                 android:hint="Category"
-                android:padding="4dp"
                 app:shapeAppearance="@style/ShapeAppearance.TextFields"
-                android:textColorHint="#4f4f4f"
-                app:hintTextColor="#4f4f4f">
+                android:textColorHint="@color/colorGrey"
+                app:hintTextColor="@color/colorGrey">
 
                 <AutoCompleteTextView
                     android:id="@+id/filled_exposed_dropdown"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#4f4f4f"/>
+                    android:textColor="@color/colorGrey"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/outlinedTextFieldLocation"
-            style="@style/TextInputLayoutStyle"
+            android:id="@+id/filledTextFieldLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
+            android:background="@drawable/announcement_details_background"
             android:hint="Location"
-            android:padding="4dp"
-            app:shapeAppearance="@style/ShapeAppearance.TextFields"
-            android:textColorHint="#4f4f4f"
-            app:hintTextColor="#4f4f4f">
+            android:textColorHint="@color/colorGrey"
+            app:hintTextColor="@color/colorGrey"
+            style="@style/TextInputLayoutStyle"
+            app:shapeAppearance="@style/ShapeAppearance.TextFields">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#4f4f4f"/>
+                android:textColor="@color/colorGrey"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/outlinedTextFieldDateTime"
-            style="@style/TextInputLayoutStyle"
+            android:id="@+id/filledTextFieldDateTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
+            android:background="@drawable/announcement_details_background"
             android:hint="Date &amp; time"
-            android:padding="4dp"
-            app:shapeAppearance="@style/ShapeAppearance.TextFields"
-            android:textColorHint="#4f4f4f"
-            app:hintTextColor="#4f4f4f">
+            android:textColorHint="@color/colorGrey"
+            app:hintTextColor="@color/colorGrey"
+            style="@style/TextInputLayoutStyle"
+            app:shapeAppearance="@style/ShapeAppearance.TextFields">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText_date_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#4f4f4f"/>
+                android:textColor="@color/colorGrey"
+                android:inputType="datetime"
+                android:focusable="false"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
