@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coronahelp.R
+import com.example.coronahelp.fragments.MapsFragmentDirections
 import com.example.coronahelp.model.Announcement
 import kotlinx.android.synthetic.main.announcement_fragment.view.*
 import kotlinx.android.synthetic.main.layout_announcement_list_item.view.*
@@ -41,15 +42,18 @@ class AnnouncementRecyclerAdapter(private var items:List<Announcement>) : Recycl
 
     class AnnouncementViewHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView){
 
+        lateinit var announcement: Announcement
+
         init{
             itemView.setOnClickListener {
-                itemView.findNavController().navigate(R.id.action_mapsFragment_to_announcementFragment)
+                val action = MapsFragmentDirections.actionMapsFragmentToAnnouncementFragment(announcement)
+                itemView.findNavController().navigate(action)
             }
 
         }
 
         fun bind(announcement: Announcement){
-
+            this.announcement = announcement
             with(itemView)
             {
                 title.text = announcement.title

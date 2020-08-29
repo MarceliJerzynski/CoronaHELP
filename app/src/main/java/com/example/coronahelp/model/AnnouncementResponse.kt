@@ -8,7 +8,7 @@ class AnnouncementResponse(
     @SerializedName("title")
     val title: String,
     @SerializedName("description")
-    val description: String?,
+    val description: String,
     @SerializedName("category")
     val category: Category,
     @SerializedName("reward")

@@ -54,7 +54,11 @@
         android:id="@+id/announcementFragment"
         android:name="com.example.coronahelp.fragments.AnnouncementFragment"
         android:label="announcement_fragment"
-        tools:layout="@layout/announcement_fragment" />
+        tools:layout="@layout/announcement_fragment" >
+        <argument
+            android:name="announcement"
+            app:argType="com.example.coronahelp.model.Announcement" />
+    </fragment>
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.example.coronahelp.fragments.MapsFragment"

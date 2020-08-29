@@ -1,16 +1,17 @@
 package com.example.coronahelp.model
 
-import android.location.Location
+import android.os.Parcelable
 import com.google.android.gms.maps.model.LatLng
-import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import java.time.LocalDateTime
 
-class Announcement(
+@Parcelize
+data class Announcement(
     val id: Int,
     val title: String,
-    val description: String?,
+    val description: String,
     val category: Category,
     val reward: Double,
     val location: LatLng,
     val time: LocalDateTime
-)
+) : Parcelable
