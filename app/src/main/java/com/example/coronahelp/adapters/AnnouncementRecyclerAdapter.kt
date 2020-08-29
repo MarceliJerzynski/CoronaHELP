@@ -36,6 +36,7 @@ class AnnouncementRecyclerAdapter(private var items:List<Announcement>) : Recycl
 
     fun submitList(announcementList: List<Announcement>){
         items = announcementList
+        notifyDataSetChanged()
     }
 
     class AnnouncementViewHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView){

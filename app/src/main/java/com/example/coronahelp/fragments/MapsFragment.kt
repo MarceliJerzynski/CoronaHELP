@@ -63,9 +63,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
             //TODO if no internet access, show dialog
 
             val layoutManager = LinearLayoutManager(activity)
-            val announcements: List<Announcement> = generateAnnouncementList()
             recycler_view.layoutManager = layoutManager
-            recycler_view.adapter = AnnouncementRecyclerAdapter(announcements)
+            recycler_view.adapter = AnnouncementRecyclerAdapter(mutableListOf())
 
             val model: MapsFragmentViewModel by viewModels()
             model.announcements.observe(viewLifecycleOwner, Observer {

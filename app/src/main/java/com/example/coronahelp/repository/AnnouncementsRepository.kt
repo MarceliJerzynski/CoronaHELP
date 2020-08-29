@@ -9,33 +9,39 @@ import com.example.coronahelp.rest.RestCaller
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.time.LocalDateTime
 
 class AnnouncementsRepository() {
 
     //private val restCaller = RestCaller()
-    var announcements: MutableLiveData<List<Announcement>> = MutableLiveData()
 
     init {
-        val ann = mutableListOf<Announcement>()
 
-        GlobalScope.launch {
-            getAnnouncementsFromREST().forEach{ announcement ->
-                ann.add(getAnnouncementFromResponse(announcement)) //TODO mówiłem Ci pało żebyś zrobił rzutowanie gdzie indziej
-            }
-        }
-
-        announcements.value = ann
     }
+
     /**
      * use restCaller to call GET method and return list of announcements
      */
 
-    fun getAnnouncementsFromREST(): List<AnnouncementResponse> {
-        return RestCaller.getAnnouncements()
+    fun getAnnouncementsFromREST(): MutableList<Announcement> {
+        val ann = mutableListOf<Announcement>()
+
+        RestCaller.getAnnouncements().forEach { announcement ->
+            ann.add(getAnnouncementFromResponse(announcement)) //TODO mówiłem Ci pało żebyś zrobił rzutowanie gdzie indziej
+        }
+
+        return ann
     }
 
-    fun createAnnouncement(title: String, description: String, category: Category, reward: Double, location: LatLng, time: LocalDateTime): Boolean {
+    fun createAnnouncement(
+        title: String,
+        description: String,
+        category: Category,
+        reward: Double,
+        location: LatLng,
+        time: LocalDateTime
+    ): Boolean {
         val announcement = Announcement(0, title, description, category, reward, location, time)
         return RestCaller.postAnnouncement(getResponseFromAnnouncement(announcement))
     }
@@ -44,7 +50,15 @@ class AnnouncementsRepository() {
         return RestCaller.deleteAnnouncements(id)
     }
 
-    fun updateAnnouncement(id: Int, title: String, description: String, category: Category, reward: Double, location: LatLng, time: LocalDateTime): Boolean {
+    fun updateAnnouncement(
+        id: Int,
+        title: String,
+        description: String,
+        category: Category,
+        reward: Double,
+        location: LatLng,
+        time: LocalDateTime
+    ): Boolean {
         val announcement = Announcement(id, title, description, category, reward, location, time)
         return RestCaller.patchAnnouncements(getResponseFromAnnouncement(announcement))
     }
@@ -61,7 +75,7 @@ class AnnouncementsRepository() {
         )
     }
 
-    private fun getResponseFromAnnouncement(announcement: Announcement) : AnnouncementResponse {
+    private fun getResponseFromAnnouncement(announcement: Announcement): AnnouncementResponse {
         return AnnouncementResponse(
             announcement.id,
             announcement.title,
@@ -70,6 +84,7 @@ class AnnouncementsRepository() {
             announcement.reward,
             announcement.location.latitude.toString(),
             announcement.location.longitude.toString(),
-            announcement.time.toString())
+            announcement.time.toString()
+        )
     }
 }
