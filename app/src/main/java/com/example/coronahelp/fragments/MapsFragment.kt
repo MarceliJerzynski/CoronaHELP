@@ -1,10 +1,13 @@
 package com.example.coronahelp.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.view.animation.DecelerateInterpolator
 import android.widget.LinearLayout
 import androidx.core.view.size
@@ -41,18 +44,44 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     var map: GoogleMap? = null
 
     internal lateinit var announcementList: MutableList<Announcement>
-    private var isShowingCardHeaderShadow: Boolean = false
+
+    var isOpen = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        fab_add.setOnClickListener{
-            view.findNavController().navigate(R.id.action_mapsFragment_to_createAnnouncement2)
-        }
 
-        button_logout.setOnClickListener{
-            view.findNavController().navigate(R.id.action_mapsFragment_to_login)
-            MainActivity.preferences?.edit()?.apply {
-                putString("Token", null)
-            }?.apply()
+        val fabOpen = AnimationUtils.loadAnimation(context, R.anim.fab_open)
+        val fabClose = AnimationUtils.loadAnimation(context, R.anim.fab_close)
+        val fabRClockwise = AnimationUtils.loadAnimation(context, R.anim.rotate_clockwise)
+        val fabRAntiClockwise = AnimationUtils.loadAnimation(context, R.anim.rotate_anticlockwise)
+
+        fab.setOnClickListener{
+            if(isOpen){
+                fab_add.startAnimation(fabClose)
+                fab_sign_out.startAnimation(fabClose)
+                fab.startAnimation(fabRClockwise)
+
+                isOpen = false
+            } else {
+                fab_add.startAnimation(fabOpen)
+                fab_sign_out.startAnimation(fabOpen)
+                fab.startAnimation(fabRAntiClockwise)
+
+                fab_add.isClickable
+                fab_sign_out.isClickable
+                isOpen = true
+            }
+
+            fab_add.setOnClickListener{
+                view.findNavController().navigate(R.id.action_mapsFragment_to_createAnnouncement2)
+            }
+
+            fab_sign_out.setOnClickListener{
+                view.findNavController().navigate(R.id.action_mapsFragment_to_login)
+                MainActivity.preferences?.edit()?.apply {
+                    putString("Token", null)
+                }?.apply()
+            }
+
         }
 
         if (!isUserLogged()!!) {

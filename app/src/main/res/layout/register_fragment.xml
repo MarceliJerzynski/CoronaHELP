@@ -29,9 +29,10 @@
             android:layout_marginBottom="10dp"
             android:drawableStart="@drawable/ic_email_black_24dp"
             android:drawablePadding="8dp"
+            android:drawableTint="@color/colorGrey"
             android:hint="Email"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorAccent"
+            android:textColor="@color/colorGrey"
+            android:textColorHint="@color/colorGrey"
             android:background="@drawable/login_edit_background"
             android:padding="10dp"/>
 
@@ -44,9 +45,10 @@
             android:layout_marginBottom="10dp"
             android:drawableStart="@drawable/ic_person_black_24dp"
             android:drawablePadding="8dp"
+            android:drawableTint="@color/colorGrey"
             android:hint="Name"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorAccent"
+            android:textColor="@color/colorGrey"
+            android:textColorHint="@color/colorGrey"
             android:background="@drawable/login_edit_background"
             android:padding="10dp"/>
 
@@ -59,9 +61,10 @@
             android:layout_marginBottom="10dp"
             android:drawableStart="@drawable/ic_person_black_24dp"
             android:drawablePadding="8dp"
+            android:drawableTint="@color/colorGrey"
             android:hint="Surname"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorAccent"
+            android:textColor="@color/colorGrey"
+            android:textColorHint="@color/colorGrey"
             android:background="@drawable/login_edit_background"
             android:padding="10dp"/>
 
@@ -74,9 +77,10 @@
             android:layout_marginBottom="10dp"
             android:drawableStart="@drawable/ic_lock_outline_black_24dp"
             android:drawablePadding="8dp"
+            android:drawableTint="@color/colorGrey"
             android:inputType="textPassword"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorAccent"
+            android:textColor="@color/colorGrey"
+            android:textColorHint="@color/colorGrey"
             android:background="@drawable/login_edit_background"
             android:padding="10dp"
             android:hint="Password"/>
@@ -91,8 +95,9 @@
             android:inputType="textPassword"
             android:drawableStart="@drawable/ic_check_black_24dp"
             android:drawablePadding="8dp"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorAccent"
+            android:drawableTint="@color/colorGrey"
+            android:textColor="@color/colorGrey"
+            android:textColorHint="@color/colorGrey"
             android:background="@drawable/login_edit_background"
             android:padding="10dp"
             android:hint="Confirm password"/>

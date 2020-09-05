@@ -1,8 +1,7 @@
 package com.example.coronahelp.fragments
 
 import android.app.DatePickerDialog
-import android.app.DatePickerDialog.OnDateSetListener
-import android.icu.text.SimpleDateFormat
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +14,9 @@ import com.example.coronahelp.R
 import com.example.coronahelp.model.Category
 import com.example.coronahelp.viewModels.CreateAnnouncementViewModel
 import kotlinx.android.synthetic.main.create_announcement_fragment.*
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
-import javax.xml.datatype.DatatypeConstants.MONTHS
 import kotlin.collections.ArrayList
 
 
@@ -24,6 +24,23 @@ class CreateAnnouncementFragment : Fragment() {
 
 
     private lateinit var viewModel: CreateAnnouncementViewModel
+
+    private fun pickDateTime() {
+        val currentDateTime = Calendar.getInstance()
+        val startYear = currentDateTime.get(Calendar.YEAR)
+        val startMonth = currentDateTime.get(Calendar.MONTH)
+        val startDay = currentDateTime.get(Calendar.DAY_OF_MONTH)
+        val startHour = currentDateTime.get(Calendar.HOUR_OF_DAY)
+        val startMinute = currentDateTime.get(Calendar.MINUTE)
+
+        DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                val pickedDateTime = Calendar.getInstance()
+                pickedDateTime.set(year, month, day, hour, minute)
+                editText_date_time.setText(SimpleDateFormat("dd.MM.yyyy HH:mm").format(pickedDateTime.time))
+            }, startHour, startMinute, true).show()
+        }, startYear, startMonth, startDay).show()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.create_announcement_fragment, container, false)
@@ -42,15 +59,9 @@ class CreateAnnouncementFragment : Fragment() {
         val editTextFilledExposedDropdown: AutoCompleteTextView = view.findViewById(R.id.filled_exposed_dropdown)
         editTextFilledExposedDropdown.setAdapter(categories_adapter)
 
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.YEAR)
-        val day = calendar.get(Calendar.YEAR)
 
-        //outlinedTextFieldDateTime.setOnClickListener {
-        //    val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{view,mYear,mMonth,mDay ->
-        //outlinedTextFieldDateTime.
-        //    })
-        //} TODO: DatePickerDialog & TimePickerDialog - nie wiem jak zrobić setText dla textFielda i nigdzie nie mogę znaleźć jak to zrobić
+        editText_date_time.setOnClickListener {
+            pickDateTime()
+        }
     }
 }

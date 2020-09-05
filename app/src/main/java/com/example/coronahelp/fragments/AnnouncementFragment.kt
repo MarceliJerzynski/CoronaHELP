@@ -1,13 +1,15 @@
 package com.example.coronahelp.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.coronahelp.R
 import kotlinx.android.synthetic.main.announcement_fragment.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class AnnouncementFragment : Fragment() {
@@ -27,5 +29,12 @@ class AnnouncementFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         title.text = args.announcement.title
+        description.text = args.announcement.description
+        reward.text = args.announcement.reward.toString()
+        val localDateTime: LocalDateTime = LocalDateTime.parse(args.announcement.time.toString())
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
+        val output: String = formatter.format(localDateTime)
+        dateAndTime.text = output
+        location.text = args.announcement.location.toString()
     }
 }
