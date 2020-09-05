@@ -15,6 +15,7 @@ import java.time.LocalDateTime
 class AnnouncementsRepository() {
 
     //private val restCaller = RestCaller()
+    var announcements: MutableLiveData<List<Announcement>> = MutableLiveData()
 
     init {
 

@@ -12,9 +12,9 @@ class UserRepository {
         val params = LoginParams(email, password, Build.MODEL)
         return RestCaller.postLogin(params)
     }
-//
-//    fun register(name: String, email: String, password: String, passwordConfirmation: String): Boolean {
-//        val params = RegisterParams(name, email, password, passwordConfirmation)
-//        return RestCaller.postRegister(params)
-//    }
+
+    fun register(name: String, email: String, password: String, passwordConfirmation: String): Boolean {
+        val params = RegisterParams(name, email, password, passwordConfirmation)
+        return RestCaller.postRegister(params)
+    }
 }
