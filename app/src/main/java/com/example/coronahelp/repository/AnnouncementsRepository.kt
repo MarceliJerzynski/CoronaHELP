@@ -14,9 +14,6 @@ import java.time.LocalDateTime
 
 class AnnouncementsRepository() {
 
-    //private val restCaller = RestCaller()
-    var announcements: MutableLiveData<List<Announcement>> = MutableLiveData()
-
     init {
 
     }
@@ -29,7 +26,7 @@ class AnnouncementsRepository() {
         val ann = mutableListOf<Announcement>()
 
         RestCaller.getAnnouncements().forEach { announcement ->
-            ann.add(getAnnouncementFromResponse(announcement)) //TODO mówiłem Ci pało żebyś zrobił rzutowanie gdzie indziej
+            ann.add(getAnnouncementFromResponse(announcement))
         }
 
         return ann

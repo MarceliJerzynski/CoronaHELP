@@ -25,8 +25,6 @@ import kotlinx.android.synthetic.main.register_fragment.*
 
 class RegisterFragment : Fragment() {
 
-    private lateinit var viewModel: RegisterViewModel
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.register_fragment, container, false)
     }
