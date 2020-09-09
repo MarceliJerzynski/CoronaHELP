@@ -13,7 +13,7 @@ import java.time.LocalDateTime
 
 class CreateAnnouncementViewModel : ViewModel() {
 
-    val success: MutableLiveData<Boolean> = MutableLiveData(false)
+    val success: MutableLiveData<Boolean> = MutableLiveData()
 
     val repository = AnnouncementsRepository()
 

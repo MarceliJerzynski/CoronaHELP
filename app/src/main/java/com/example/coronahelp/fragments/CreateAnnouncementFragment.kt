@@ -39,16 +39,36 @@ class CreateAnnouncementFragment : Fragment() {
         val startHour = currentDateTime.get(Calendar.HOUR_OF_DAY)
         val startMinute = currentDateTime.get(Calendar.MINUTE)
 
-        DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener { _, year, month, day ->
-            TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { _, hour, minute ->
-                val pickedDateTime = Calendar.getInstance()
-                pickedDateTime.set(year, month, day, hour, minute)
-                editText_date_time.setText(SimpleDateFormat("dd.MM.yyyy HH:mm").format(pickedDateTime.time))
-            }, startHour, startMinute, true).show()
-        }, startYear, startMonth, startDay).show()
+        DatePickerDialog(
+            requireContext(),
+            DatePickerDialog.OnDateSetListener { _, year, month, day ->
+                TimePickerDialog(
+                    requireContext(),
+                    TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                        val pickedDateTime = Calendar.getInstance()
+                        pickedDateTime.set(year, month, day, hour, minute)
+                        editText_date_time.setText(
+                            SimpleDateFormat("dd.MM.yyyy HH:mm").format(
+                                pickedDateTime.time
+                            )
+                        )
+                    },
+                    startHour,
+                    startMinute,
+                    true
+                ).show()
+            },
+            startYear,
+            startMonth,
+            startDay
+        ).show()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.create_announcement_fragment, container, false)
     }
 
@@ -62,8 +82,10 @@ class CreateAnnouncementFragment : Fragment() {
         for (category in Category.values()) {
             categories.add(category)
         }
-        val categories_adapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu_popup_item, categories)
-        val editTextFilledExposedDropdown: AutoCompleteTextView = view.findViewById(R.id.filled_exposed_dropdown)
+        val categories_adapter =
+            ArrayAdapter(requireContext(), R.layout.dropdown_menu_popup_item, categories)
+        val editTextFilledExposedDropdown: AutoCompleteTextView =
+            view.findViewById(R.id.filled_exposed_dropdown)
         editTextFilledExposedDropdown.setAdapter(categories_adapter)
 
 
@@ -73,14 +95,18 @@ class CreateAnnouncementFragment : Fragment() {
 
         val model: CreateAnnouncementViewModel by viewModels()
         model.success.observe(viewLifecycleOwner, Observer {
-            if( it == true )
-                view.findNavController().navigate(R.id.action_createAnnouncement2_to_mapsFragment)
-            else {
-                val snackBar = Snackbar.make(
-                    requireActivity().findViewById(android.R.id.content),
-                    "Something went wrong, try again with valid data", Snackbar.LENGTH_LONG
-                )
-                snackBar.show()
+
+            it.let {
+                if (it)
+                    view.findNavController()
+                        .navigate(R.id.action_createAnnouncement2_to_mapsFragment)
+                else {
+                    val snackBar = Snackbar.make(
+                        requireActivity().findViewById(android.R.id.content),
+                        "Something went wrong, try again with valid data", Snackbar.LENGTH_LONG
+                    )
+                    snackBar.show()
+                }
             }
         })
 
@@ -89,7 +115,8 @@ class CreateAnnouncementFragment : Fragment() {
             val description = filledTextFieldDesc.editText?.text.toString()
             val reward = filledTextFieldReward.editText?.text.toString().toDouble()
             val category = outlinedCategoryDropdownMenu.editText?.text as Category
-            val locationText = filledTextFieldLocation.editText?.text.toString() //TODO LOCATION HERE
+            val locationText =
+                filledTextFieldLocation.editText?.text.toString() //TODO LOCATION HERE
 
             val dateText = filledTextFieldDateTime.editText?.text.toString()
             val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");

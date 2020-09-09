@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
-    val success: MutableLiveData<Boolean> = MutableLiveData(false)
+    val success: MutableLiveData<Boolean> = MutableLiveData()
 
     val repository = UserRepository()
 

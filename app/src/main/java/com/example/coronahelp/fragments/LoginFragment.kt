@@ -24,7 +24,11 @@ import kotlinx.android.synthetic.main.login_fragment.*
 
 class LoginFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.login_fragment, container, false)
     }
 
@@ -32,19 +36,20 @@ class LoginFragment : Fragment() {
 
         val model: LoginViewModel by viewModels()
         model.success.observe(viewLifecycleOwner, Observer {
-            if( it )
-            {
-                val imm: InputMethodManager = activity?.applicationContext?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view.windowToken, 0)
+            it.let {
+                if (it) {
+                    val imm: InputMethodManager =
+                        activity?.applicationContext?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(view.windowToken, 0)
 
-                view.findNavController().navigate(R.id.action_login_to_mapsFragment)
-            }
-            else {
-                val snackBar = Snackbar.make(
-                    requireActivity().findViewById(android.R.id.content),
-                    "Something went wrong, try again with valid data", Snackbar.LENGTH_LONG
-                )
-                snackBar.show()
+                    view.findNavController().navigate(R.id.action_login_to_mapsFragment)
+                } else {
+                    val snackBar = Snackbar.make(
+                        requireActivity().findViewById(android.R.id.content),
+                        "Something went wrong, try again with valid data", Snackbar.LENGTH_LONG
+                    )
+                    snackBar.show()
+                }
             }
         })
 
