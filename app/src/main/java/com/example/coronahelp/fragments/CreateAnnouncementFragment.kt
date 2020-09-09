@@ -16,7 +16,6 @@ import com.example.coronahelp.R
 import com.example.coronahelp.model.Category
 import com.example.coronahelp.viewModels.CreateAnnouncementViewModel
 import com.example.coronahelp.viewModels.LoginViewModel
-import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText

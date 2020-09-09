@@ -34,8 +34,8 @@
             android:textColorHint="@color/colorGrey"
             android:textColor="@color/colorGrey"
             android:background="@drawable/login_edit_background"
-            android:padding="10dp"/>
-            <!--android:text="admin@admin.pl"-->
+            android:padding="10dp"
+            android:text="admin@admin.pl" />
 
         <EditText
             android:id="@+id/editTextPassword"
@@ -53,8 +53,8 @@
             android:background="@drawable/login_edit_background"
             android:padding="10dp"
             android:inputType="textPassword"
-            android:textColor="@color/colorGrey"/>
-            <!-- android:text="admin123" -->
+            android:textColor="@color/colorGrey"
+             android:text="admin123"  />
 
         <Button
             android:id="@+id/buttonLogin"
