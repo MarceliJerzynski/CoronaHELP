@@ -12,11 +12,20 @@
         android:layout_height="match_parent" />
 
     <LinearLayout
+        android:id="@+id/helper_layout"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <LinearLayout
         android:id="@+id/bottom_panel"
         android:layout_width="match_parent"
         android:layout_height="1000dp"
         android:background="@drawable/recycler_background_shape"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="@id/helper_layout"
+        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,36 +50,33 @@
         </LinearLayout>
     </LinearLayout>
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/fab_sign_out"
-        android:layout_marginBottom="20dp"
         android:layout_marginEnd="24dp"
-        app:backgroundTint="#ffffff"
-        app:elevation="6dp"
-        app:pressedTranslationZ="12dp"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/ic_add_black_24dp"
         android:visibility="invisible"
-        />
+        app:backgroundTint="#ffffff"
+        app:elevation="6dp"
+        app:layout_constraintBottom_toTopOf="@id/fab_sign_out"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:pressedTranslationZ="12dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_sign_out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/fab"
-        android:layout_marginBottom="20dp"
         android:layout_marginEnd="24dp"
-        app:backgroundTint="#ffffff"
-        app:elevation="6dp"
-        app:pressedTranslationZ="12dp"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/ic_sign_out_black_24dp"
         android:visibility="invisible"
-        />
+        app:backgroundTint="#ffffff"
+        app:elevation="6dp"
+        app:layout_constraintBottom_toTopOf="@id/fab"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:pressedTranslationZ="12dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -79,11 +85,11 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:clickable="true"
+        app:elevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_add_white_24dp"
-        app:elevation="6dp"
-        app:pressedTranslationZ="12dp"/>
+        app:pressedTranslationZ="12dp"
+        app:srcCompat="@drawable/ic_add_white_24dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

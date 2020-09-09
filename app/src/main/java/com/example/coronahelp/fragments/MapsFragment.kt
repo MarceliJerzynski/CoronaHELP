@@ -108,8 +108,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                     view.viewTreeObserver.removeOnGlobalLayoutListener(this);
 
                     val targetHeight = view.height.toFloat()
-                    bottom_panel.y = targetHeight - 500
-
                     recycler_view_ll.layoutParams = LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         (targetHeight - 200).toInt()
@@ -123,7 +121,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                         override fun onDragEnd(p0: Float, p1: Float) {}
 
                         override fun onDrag(value: Float, friction: Float) {
-                            bottom_panel.setY(value)
+                            bottom_panel.y = value
                         }
                     }
 
