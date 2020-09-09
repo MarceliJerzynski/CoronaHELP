@@ -9,21 +9,28 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.coronahelp.R
 import com.example.coronahelp.model.Category
 import com.example.coronahelp.viewModels.CreateAnnouncementViewModel
+import com.example.coronahelp.viewModels.LoginViewModel
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.create_announcement_fragment.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
 
 class CreateAnnouncementFragment : Fragment() {
-
-
-    private lateinit var viewModel: CreateAnnouncementViewModel
 
     private fun pickDateTime() {
         val currentDateTime = Calendar.getInstance()
@@ -47,6 +54,7 @@ class CreateAnnouncementFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         buttonCancelAnnouncement.setOnClickListener {
             view.findNavController().navigate(R.id.action_createAnnouncement2_to_mapsFragment)
         }
@@ -62,6 +70,34 @@ class CreateAnnouncementFragment : Fragment() {
 
         editText_date_time.setOnClickListener {
             pickDateTime()
+        }
+
+        val model: CreateAnnouncementViewModel by viewModels()
+        model.success.observe(viewLifecycleOwner, Observer {
+            if( it == true )
+                view.findNavController().navigate(R.id.action_createAnnouncement2_to_mapsFragment)
+            else {
+                val snackBar = Snackbar.make(
+                    requireActivity().findViewById(android.R.id.content),
+                    "Something went wrong, try again with valid data", Snackbar.LENGTH_LONG
+                )
+                snackBar.show()
+            }
+        })
+
+        buttonCreateAnnouncement.setOnClickListener {
+            val title = filledTextFieldTitle.editText?.text.toString()
+            val description = filledTextFieldDesc.editText?.text.toString()
+            val reward = filledTextFieldReward.editText?.text.toString().toDouble()
+            val category = outlinedCategoryDropdownMenu.editText?.text as Category
+            val locationText = filledTextFieldLocation.editText?.text.toString() //TODO LOCATION HERE
+
+            val dateText = filledTextFieldDateTime.editText?.text.toString()
+            val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
+            val date = LocalDateTime.parse(dateText, formatter);
+
+//            model.createAnnouncement(title, description, category, reward, locationText, date);
+            model.createAnnouncement(title, description, category, reward, LatLng(0.0, 0.0), date);
         }
     }
 }

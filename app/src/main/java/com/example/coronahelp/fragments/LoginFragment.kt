@@ -21,6 +21,7 @@ import com.example.coronahelp.R
 import com.example.coronahelp.model.LoginParams
 import com.example.coronahelp.rest.RestCaller
 import com.example.coronahelp.viewModels.LoginViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.login_fragment.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -28,10 +29,8 @@ import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
 
-    private lateinit var viewModel: LoginViewModel
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.login_fragment, container, false);
+        return inflater.inflate(R.layout.login_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,7 +40,11 @@ class LoginFragment : Fragment() {
             if( it == true )
                 view.findNavController().navigate(R.id.action_login_to_mapsFragment)
             else {
-                // TODO print error for user
+                val snackBar = Snackbar.make(
+                    requireActivity().findViewById(android.R.id.content),
+                    "Something went wrong, try again with valid data", Snackbar.LENGTH_LONG
+                )
+                snackBar.show()
             }
         })
 
