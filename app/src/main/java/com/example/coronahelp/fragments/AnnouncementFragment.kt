@@ -36,5 +36,8 @@ class AnnouncementFragment : Fragment() {
         val output: String = formatter.format(localDateTime)
         dateAndTime.text = output
         location.text = args.announcement.location.toString()
+        //TODO uncomment if owner done
+//        user_name.text = args.announcement.owner;
+
     }
 }

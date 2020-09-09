@@ -54,6 +54,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         val fabRClockwise = AnimationUtils.loadAnimation(context, R.anim.rotate_clockwise)
         val fabRAntiClockwise = AnimationUtils.loadAnimation(context, R.anim.rotate_anticlockwise)
 
+        myAnnouncmentsButton.setOnClickListener{
+            view.findNavController().navigate(R.id.action_mapsFragment_to_myAnnouncementsFragment)
+        }
+
         fab.setOnClickListener{
             if(isOpen){
                 fab_add.startAnimation(fabClose)

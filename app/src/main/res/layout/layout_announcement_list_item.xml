@@ -8,16 +8,15 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
+        android:layout_marginBottom="4dp"
         app:cardElevation="4dp"
-        app:cardBackgroundColor="@color/colorAccent"
-        app:cardCornerRadius="20dp">
+        app:cardBackgroundColor="#FFF">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/title"
@@ -36,6 +35,7 @@
                 android:gravity="center_vertical"
                 android:text="23"
                 android:textSize="16sp"
+                android:textColor="@color/colorGrey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,6 +53,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Description"
                 android:textSize="15sp"
+                android:textColor="@color/colorGrey"
                 android:layout_marginEnd="100dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title" />
@@ -64,6 +65,7 @@
                 android:maxWidth="100dp"
                 android:layout_marginTop="10dp"
                 android:text="Username"
+                android:textColor="@color/colorGrey"
                 android:textSize="15sp"
                 app:layout_constraintTop_toBottomOf="@id/reward"
                 app:layout_constraintEnd_toEndOf="parent" />
