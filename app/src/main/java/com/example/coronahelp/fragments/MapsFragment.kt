@@ -92,7 +92,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
             view.findNavController().navigate(R.id.action_mapsFragment_to_login)
         } else {
 
-
             //TODO if no internet access, show dialog
 
             val layoutManager = LinearLayoutManager(activity)
@@ -102,7 +101,11 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
             val model: MapsFragmentViewModel by viewModels()
             model.announcements.observe(viewLifecycleOwner, Observer {
                 (recycler_view.adapter as AnnouncementRecyclerAdapter).submitList(it)
+                for (task in it){
+                    map?.addMarker(MarkerOptions().position(task.location).title(task.title))
+                }
             })
+
 
             val listener = OnSwipeTouchListener()
 
