@@ -2,6 +2,7 @@ package com.example.coronahelp.fragments
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.location.Geocoder
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,17 +13,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.coronahelp.R
 import com.example.coronahelp.model.Category
 import com.example.coronahelp.viewModels.CreateAnnouncementViewModel
-import com.example.coronahelp.viewModels.LoginViewModel
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.create_announcement_fragment.*
-import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -30,6 +28,8 @@ import kotlin.collections.ArrayList
 
 
 class CreateAnnouncementFragment : Fragment() {
+
+    val args: CreateAnnouncementFragmentArgs by navArgs()
 
     private fun pickDateTime() {
         val currentDateTime = Calendar.getInstance()
@@ -93,6 +93,10 @@ class CreateAnnouncementFragment : Fragment() {
             pickDateTime()
         }
 
+        editText_location.setOnClickListener{
+            view.findNavController().navigate(R.id.action_createAnnouncement2_to_creatingAdMapFragment)
+        }
+
         val model: CreateAnnouncementViewModel by viewModels()
         model.success.observe(viewLifecycleOwner, Observer {
 
@@ -125,5 +129,11 @@ class CreateAnnouncementFragment : Fragment() {
 //            model.createAnnouncement(title, description, category, reward, locationText, date);
             model.createAnnouncement(title, description, category, reward, LatLng(0.0, 0.0), date);
         }
+    }
+
+    private fun getAddress(lat: LatLng): String? {
+        val geocoder = Geocoder(requireContext())
+        val list = geocoder.getFromLocation(lat.latitude, lat.longitude,1)
+        return list[0].getAddressLine(0)
     }
 }
