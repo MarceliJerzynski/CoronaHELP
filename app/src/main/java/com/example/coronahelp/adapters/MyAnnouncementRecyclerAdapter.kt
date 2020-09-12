@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coronahelp.R
 import com.example.coronahelp.fragments.MapsFragmentDirections
+import com.example.coronahelp.fragments.MyAnnouncementsFragmentDirections
 import com.example.coronahelp.model.Announcement
 import kotlinx.android.synthetic.main.announcement_fragment.view.*
 import kotlinx.android.synthetic.main.layout_announcement_list_item.view.*
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main.announcement_fragment.view.description as 
 import kotlinx.android.synthetic.main.announcement_fragment.view.title as title1
 import kotlinx.android.synthetic.main.announcement_fragment.view.user_name as user_name1
 
-class AnnouncementRecyclerAdapter(private var items:List<Announcement>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class MyAnnouncementRecyclerAdapter(private var items:List<Announcement>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return AnnouncementViewHolder(
@@ -46,7 +47,7 @@ class AnnouncementRecyclerAdapter(private var items:List<Announcement>) : Recycl
 
         init{
             itemView.setOnClickListener {
-                val action = MapsFragmentDirections.actionMapsFragmentToAnnouncementFragment(announcement.id)
+                val action = MyAnnouncementsFragmentDirections.actionMyAnnouncementsFragmentToAnnouncementFragment(announcement.id)
                 itemView.findNavController().navigate(action)
             }
         }

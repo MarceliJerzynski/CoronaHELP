@@ -2,7 +2,6 @@ package com.example.coronahelp.repository
 
 import com.example.coronahelp.model.Announcement
 import com.example.coronahelp.model.AnnouncementResponse
-import com.example.coronahelp.model.Category
 import com.example.coronahelp.rest.RestCaller
 import com.google.android.gms.maps.model.LatLng
 import java.time.LocalDateTime
@@ -26,12 +25,16 @@ class AnnouncementsRepository {
     fun createAnnouncement(
         title: String,
         description: String,
-        category: Category,
+        category: String,
         reward: Double,
         location: LatLng,
         time: LocalDateTime
     ): Boolean {
         val announcement = Announcement(0, title, description, category, reward, location, time)
+        return RestCaller.postAnnouncement(getResponseFromAnnouncement(announcement))
+    }
+
+    fun createAnnouncement(announcement: Announcement): Boolean {
         return RestCaller.postAnnouncement(getResponseFromAnnouncement(announcement))
     }
 
@@ -43,7 +46,7 @@ class AnnouncementsRepository {
         id: Int,
         title: String,
         description: String,
-        category: Category,
+        category: String,
         reward: Double,
         location: LatLng,
         time: LocalDateTime
@@ -73,7 +76,9 @@ class AnnouncementsRepository {
             announcement.reward,
             announcement.location.latitude.toString(),
             announcement.location.longitude.toString(),
-            announcement.time.toString()
+            announcement.time.toString(),
+            announcement.owner,
+            announcement.performer
         )
     }
 

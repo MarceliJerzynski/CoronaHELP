@@ -2,8 +2,8 @@ package com.example.coronahelp.model
 
 import java.time.LocalDateTime
 
-data class Person(
+data class User(
+    val id: String,
     val name: String,
-    val lastName: String,
-    val timeOfCreatingAccount: LocalDateTime
+    val email: String
 )

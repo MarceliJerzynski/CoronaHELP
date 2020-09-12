@@ -5,11 +5,13 @@ import com.google.android.gms.maps.model.LatLng
 import java.time.LocalDateTime
 
 data class Announcement(
-    val id: Int,
-    val title: String,
-    val description: String,
-    val category: Category,
-    val reward: Double,
-    val location: LatLng,
-    val time: LocalDateTime
+    var id: Int,
+    var title: String,
+    var description: String,
+    var category: String,
+    var reward: Double,
+    var location: LatLng,
+    var time: LocalDateTime,
+    var owner: User? = null,
+    var performer: User? = null
 )

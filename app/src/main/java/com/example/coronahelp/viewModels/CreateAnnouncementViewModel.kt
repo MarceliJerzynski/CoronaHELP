@@ -3,9 +3,8 @@ package com.example.coronahelp.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.coronahelp.model.Category
+import com.example.coronahelp.model.Announcement
 import com.example.coronahelp.repository.AnnouncementsRepository
-import com.example.coronahelp.repository.UserRepository
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,19 +16,11 @@ class CreateAnnouncementViewModel : ViewModel() {
 
     val repository = AnnouncementsRepository()
 
-    fun createAnnouncement(title: String,
-                           description: String,
-                           category: Category,
-                           reward: Double,
-                           location: LatLng,
-                           time: LocalDateTime
-    ) = viewModelScope.launch(Dispatchers.IO) {
-        success.postValue(repository.createAnnouncement(
-            title,
-            description,
-            category,
-            reward,
-            location,
-            time))
+    val announcement by lazy {
+        Announcement(-1, "", "", "", 5.0, LatLng(0.0, 0.0), LocalDateTime.now())
+    }
+
+    fun createAnnouncement() = viewModelScope.launch(Dispatchers.IO) {
+        success.postValue(repository.createAnnouncement(announcement))
     }
 }

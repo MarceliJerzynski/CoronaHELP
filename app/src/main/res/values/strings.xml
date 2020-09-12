@@ -2,6 +2,13 @@
     <string name="app_name">CoronaHelp</string>
     <string name="title_activity_maps">Map</string>
 
+    <string-array name="categories">
+        <item>Small shopping</item>
+        <item>Big shopping</item>
+        <item>Take package</item>
+        <item>Take out dog</item>
+    </string-array>
+
     <string name="demo_title">Google Maps API Demos</string>
     <string name="no_demos">No demos</string>
     <string name="play_services_not_installed">Google Play services is not installed on this device.</string>

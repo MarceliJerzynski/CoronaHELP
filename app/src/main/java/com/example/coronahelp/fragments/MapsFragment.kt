@@ -1,22 +1,17 @@
 package com.example.coronahelp.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.view.animation.DecelerateInterpolator
 import android.widget.LinearLayout
-import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.colorgreen.swiper.OnSwipeTouchListener
 import com.colorgreen.swiper.SwipeAction
 import com.colorgreen.swiper.SwipeActionListener
@@ -24,7 +19,6 @@ import com.example.coronahelp.MainActivity
 import com.example.coronahelp.R
 import com.example.coronahelp.adapters.AnnouncementRecyclerAdapter
 import com.example.coronahelp.model.Announcement
-import com.example.coronahelp.model.Category
 import com.example.coronahelp.rest.RestCaller
 import com.example.coronahelp.viewModels.MapsFragmentViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -47,21 +41,23 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
     var isOpen = false
 
+    val model: MapsFragmentViewModel by viewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        hello_username.text = "Hello "+RestCaller.name
+        hello_username.text = "Hello " + RestCaller.name
 
         val fabOpen = AnimationUtils.loadAnimation(context, R.anim.fab_open)
         val fabClose = AnimationUtils.loadAnimation(context, R.anim.fab_close)
         val fabRClockwise = AnimationUtils.loadAnimation(context, R.anim.rotate_clockwise)
         val fabRAntiClockwise = AnimationUtils.loadAnimation(context, R.anim.rotate_anticlockwise)
 
-        myAnnouncmentsButton.setOnClickListener{
+        myAnnouncmentsButton.setOnClickListener {
             view.findNavController().navigate(R.id.action_mapsFragment_to_myAnnouncementsFragment)
         }
 
-        fab.setOnClickListener{
-            if(isOpen){
+        fab.setOnClickListener {
+            if (isOpen) {
                 fab_add.startAnimation(fabClose)
                 fab_sign_out.startAnimation(fabClose)
                 fab.startAnimation(fabRClockwise)
@@ -76,24 +72,26 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                 fab_sign_out.isClickable
                 isOpen = true
             }
-
-            fab_add.setOnClickListener{
-                view.findNavController().navigate(R.id.action_mapsFragment_to_createAnnouncement2)
-            }
-
-            fab_sign_out.setOnClickListener{
-                view.findNavController().navigate(R.id.action_mapsFragment_to_login)
-                MainActivity.preferences?.edit()?.apply {
-                    putString("Token", null)
-                }?.apply()
-            }
-
         }
+
+        fab_add.setOnClickListener {
+            val action = MapsFragmentDirections.actionMapsFragmentToCreateAnnouncement(map?.cameraPosition!!.target)
+            view.findNavController().navigate(action)
+        }
+
+        fab_sign_out.setOnClickListener {
+            view.findNavController().navigate(R.id.action_mapsFragment_to_login)
+            MainActivity.preferences?.edit()?.apply {
+                putString("Token", null)
+                putString("Email", null)
+                putString("Name", null)
+            }?.apply()
+        }
+
 
         if (!isUserLogged()!!) {
             view.findNavController().navigate(R.id.action_mapsFragment_to_login)
         } else {
-
 
             //TODO if no internet access, show dialog
 
@@ -101,10 +99,13 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
             recycler_view.layoutManager = layoutManager
             recycler_view.adapter = AnnouncementRecyclerAdapter(mutableListOf())
 
-            val model: MapsFragmentViewModel by viewModels()
             model.announcements.observe(viewLifecycleOwner, Observer {
                 (recycler_view.adapter as AnnouncementRecyclerAdapter).submitList(it)
+                for (task in it) {
+                    map?.addMarker(MarkerOptions().position(task.location).title(task.title))
+                }
             })
+
 
             val listener = OnSwipeTouchListener()
 
@@ -153,7 +154,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                     1,
                     "Potrzeba sanitarna",
                     "Potrzeba na szybko 10 rolek papieru toaletowego!!",
-                    Category.TOILET_PAPER,
+                    "Zakupy",
                     30.0,
                     LatLng(52.0, 52.09),
                     LocalDateTime.now()
@@ -164,7 +165,11 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         return announcementList
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val v: View = inflater.inflate(R.layout.fragment_maps, container, false)
 
         mapView = v.findViewById<MapView>(R.id.mapView)
@@ -189,7 +194,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         googleMap.isMyLocationEnabled = true
 
         val poznan = LatLng(52.40953, 16.93199)
-        googleMap.addMarker(MarkerOptions().position(poznan).title("Poznań").snippet("Poznań - miasto"))
+        googleMap.addMarker(
+            MarkerOptions().position(poznan).title("Poznań").snippet("Poznań - miasto")
+        )
 
         val cameraPosition =
             CameraPosition.Builder().target(poznan).zoom(12f).build()
@@ -198,13 +205,14 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onResume() {
-        mapView.onResume()
+//        mapView.onResume()
+        model.refreshAnnouncements()
         super.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+//        mapView.onPause()
     }
 
     override fun onDestroy() {

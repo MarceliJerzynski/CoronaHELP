@@ -133,9 +133,11 @@
             app:shapeAppearance="@style/ShapeAppearance.TextFields">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorGrey"/>
+                android:textColor="@color/colorGrey"
+                android:focusable="false"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
