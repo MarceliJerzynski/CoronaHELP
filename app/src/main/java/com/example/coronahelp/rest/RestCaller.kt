@@ -1,11 +1,9 @@
 package com.example.coronahelp.rest
 
-import android.content.SharedPreferences
 import com.example.coronahelp.MainActivity
 import com.example.coronahelp.model.*
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.isSuccessful
-import com.github.kittinunf.fuel.gson.responseObject
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 
@@ -16,10 +14,12 @@ object RestCaller {
     private const val restRegisterUrl: String = "/register"
     private const val restLoginUrl: String = "/login/token"
 
-    private lateinit var token: String
+    lateinit var token: String
+    lateinit var email: String
+    lateinit var name: String
 
     init {
-        loadToken()
+        loadData()
     }
 
     /**
@@ -41,6 +41,24 @@ object RestCaller {
         val gson = Gson()
         val announcements = gson.fromJson(json, Array<AnnouncementResponse>::class.java).toList()
         return announcements
+    }
+
+
+    fun getAnnoucement(id: Int): Announcement? {
+        val (request, response, result) =
+            Fuel
+                .get(mainUrl + restAnnouncementUrl + "/" + id)
+                .header(
+                    "Accept" to "application/json",
+                    "Content-type" to "application/json",
+                    "Authorization" to "Bearer $token"
+                )
+                .response()
+
+        val json = JsonParser().parse(String(response.data)).asJsonObject["data"].toString()
+        val gson = Gson()
+        val announcement = gson.fromJson(json, AnnouncementResponse::class.java)
+        return announcement.toAnnouncement()
     }
 
     fun postAnnouncement(announcement: AnnouncementResponse): Boolean {
@@ -121,22 +139,28 @@ object RestCaller {
 
         result.fold({
             token = JsonParser().parse(String(response.data)).asJsonObject["token"].toString()
+            email = JsonParser().parse(String(response.data)).asJsonObject["email"].toString()
+            name = JsonParser().parse(String(response.data)).asJsonObject["name"].toString()
             token = token.drop(1).dropLast(1)
-            saveToken()
+            saveData()
             return true
         }, {
             return false
         })
     }
 
-    private fun saveToken() {
+    private fun saveData() {
         MainActivity.preferences?.edit()?.apply {
             putString("Token", token)
+            putString("Email", email)
+            putString("Name", name)
         }?.apply()
     }
 
-    private fun loadToken() {
+    private fun loadData() {
         token = MainActivity.preferences?.getString("Token", null).toString()
+        email = MainActivity.preferences?.getString("Email", null).toString()
+        name = MainActivity.preferences?.getString("Name", null).toString()
     }
 
 }

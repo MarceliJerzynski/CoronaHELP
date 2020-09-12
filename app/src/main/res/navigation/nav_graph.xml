@@ -57,18 +57,14 @@
         android:label="announcement_fragment"
         tools:layout="@layout/announcement_fragment" >
         <argument
-            android:name="announcement"
-            app:argType="com.example.coronahelp.model.Announcement" />
+            android:name="id"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.example.coronahelp.fragments.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" >
-        <action
-            android:id="@+id/action_mapsFragment_to_announcementFragment"
-            app:destination="@id/announcementFragment"
-            app:enterAnim="@anim/fragment_fade_enter" />
         <action
             android:id="@+id/action_mapsFragment_to_createAnnouncement2"
             app:destination="@id/createAnnouncement2"
@@ -84,6 +80,11 @@
         <action
             android:id="@+id/action_mapsFragment_to_myAnnouncementsFragment"
             app:destination="@id/myAnnouncementsFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_mapsFragment_to_announcementFragment"
+            app:destination="@id/announcementFragment"
             app:enterAnim="@anim/fragment_fade_enter"
             app:exitAnim="@anim/fragment_fade_exit" />
     </fragment>

@@ -49,6 +49,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        hello_username.text = "Hello "+RestCaller.name
+
         val fabOpen = AnimationUtils.loadAnimation(context, R.anim.fab_open)
         val fabClose = AnimationUtils.loadAnimation(context, R.anim.fab_close)
         val fabRClockwise = AnimationUtils.loadAnimation(context, R.anim.rotate_clockwise)

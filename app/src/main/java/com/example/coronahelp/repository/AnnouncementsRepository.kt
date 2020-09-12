@@ -1,22 +1,13 @@
 package com.example.coronahelp.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.coronahelp.model.Announcement
 import com.example.coronahelp.model.AnnouncementResponse
 import com.example.coronahelp.model.Category
 import com.example.coronahelp.rest.RestCaller
 import com.google.android.gms.maps.model.LatLng
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import java.time.LocalDateTime
 
-class AnnouncementsRepository() {
-
-    init {
-
-    }
+class AnnouncementsRepository {
 
     /**
      * use restCaller to call GET method and return list of announcements
@@ -25,8 +16,8 @@ class AnnouncementsRepository() {
     fun getAnnouncementsFromREST(): MutableList<Announcement> {
         val ann = mutableListOf<Announcement>()
 
-        RestCaller.getAnnouncements().forEach { announcement ->
-            ann.add(getAnnouncementFromResponse(announcement))
+        RestCaller.getAnnouncements().forEach { ar ->
+            ann.add(ar.toAnnouncement())
         }
 
         return ann
@@ -84,5 +75,9 @@ class AnnouncementsRepository() {
             announcement.location.longitude.toString(),
             announcement.time.toString()
         )
+    }
+
+    fun getAnnouncement(id: Int): Announcement? {
+        return RestCaller.getAnnoucement(id)
     }
 }

@@ -46,7 +46,7 @@ class AnnouncementRecyclerAdapter(private var items:List<Announcement>) : Recycl
 
         init{
             itemView.setOnClickListener {
-                val action = MapsFragmentDirections.actionMapsFragmentToAnnouncementFragment(announcement)
+                val action = MapsFragmentDirections.actionMapsFragmentToAnnouncementFragment(announcement.id)
                 itemView.findNavController().navigate(action)
             }
 
