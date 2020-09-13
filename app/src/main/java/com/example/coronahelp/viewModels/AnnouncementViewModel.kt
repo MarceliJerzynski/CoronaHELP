@@ -28,4 +28,9 @@ class AnnouncementViewModel : ViewModel() {
     fun deleteTask(id: Int) = viewModelScope.launch(Dispatchers.IO) {
         success.postValue(RestCaller.deleteAnnouncements(id))
     }
+
+    fun confirmAnnouncement(id: Int) = viewModelScope.launch(Dispatchers.IO) {
+        success.postValue(RestCaller.confirmAnnouncement(id))
+    }
+
 }

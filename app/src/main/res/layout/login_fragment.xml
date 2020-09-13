@@ -35,7 +35,7 @@
             android:textColor="@color/colorGrey"
             android:background="@drawable/login_edit_background"
             android:padding="10dp"
-            android:text="admin@admin.pl" />
+            android:text="korneliusz.szymanski@gmail.com" />
 
         <EditText
             android:id="@+id/editTextPassword"

@@ -13,14 +13,13 @@ class AnnouncementResponse(
     val reward: Double,
     val lat: String,
     val long: String,
-    @SerializedName("deadline")
-    val time: String,
+    val deadline: String,
 
     val owner: User?,
     val performer: User?
 ) {
     override fun toString(): String {
-        return "\nid: $id\ntitle: $title\ndescription: $description\ncategory: $category\nreward: $reward\nlat: $lat\nlong: $long\ntime: $time\n"
+        return "\nid: $id\ntitle: $title\ndescription: $description\ncategory: $category\nreward: $reward\nlat: $lat\nlong: $long\ndeadline: $deadline\n"
     }
 
     fun toAnnouncement(): Announcement {
@@ -34,7 +33,7 @@ class AnnouncementResponse(
             category,
             reward,
             LatLng(lat.toDouble(), long.toDouble()),
-            LocalDateTime.parse(time, formatter),
+            LocalDateTime.parse(deadline, formatter),
             owner,
             performer
         )

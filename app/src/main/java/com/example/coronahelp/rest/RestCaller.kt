@@ -157,6 +157,20 @@ object RestCaller {
         })
     }
 
+    fun confirmAnnouncement(id: Int): Boolean {
+        val (request, response, result) =
+            Fuel
+                .post(mainUrl + restConfirmAnnouncementUrl + id)
+                .response()
+
+        result.fold({
+            return true
+        }, {
+            lastError = JsonParser().parse(String(response.data)).asJsonObject["message"].asString
+            return false
+        })
+    }
+
     private fun saveData() {
         MainActivity.preferences?.edit()?.apply {
             putString("Token", token)

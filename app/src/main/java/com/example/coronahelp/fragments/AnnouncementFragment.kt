@@ -96,6 +96,10 @@ class AnnouncementFragment : Fragment() {
             model.takeTask(args.id)
         }
 
+        endTaskButton.setOnClickListener {
+            model.confirmAnnouncement(args.id)
+        }
+
     }
 
 }

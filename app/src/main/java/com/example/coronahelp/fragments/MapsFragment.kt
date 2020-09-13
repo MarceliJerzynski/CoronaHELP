@@ -52,6 +52,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         val fabRClockwise = AnimationUtils.loadAnimation(context, R.anim.rotate_clockwise)
         val fabRAntiClockwise = AnimationUtils.loadAnimation(context, R.anim.rotate_anticlockwise)
 
+        refresh_button.setOnClickListener {
+            model.refreshAnnouncements()
+        }
+
         myAnnouncmentsButton.setOnClickListener {
             view.findNavController().navigate(R.id.action_mapsFragment_to_myAnnouncementsFragment)
         }
@@ -106,37 +110,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                 }
             })
 
-
-            val listener = OnSwipeTouchListener()
-
-            view.viewTreeObserver.addOnGlobalLayoutListener(object :
-                ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    view.viewTreeObserver.removeOnGlobalLayoutListener(this);
-
-                    val targetHeight = view.height.toFloat()
-                    recycler_view_ll.layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        (targetHeight - 200).toInt()
-                    )
-
-                    val swipeAction = SwipeAction()
-                    swipeAction.direction = SwipeAction.DragDirection.Up
-                    swipeAction.setSteps(floatArrayOf(bottom_panel.y, 300f))
-                    swipeAction.swipeActionListener = object : SwipeActionListener {
-                        override fun onDragStart(value: Float, totalFriction: Float) {}
-                        override fun onDragEnd(p0: Float, p1: Float) {}
-
-                        override fun onDrag(value: Float, friction: Float) {
-                            bottom_panel.y = value
-                        }
-                    }
-
-                    listener.addAction(swipeAction)
-                }
-            })
-
-            listener.attachToView(bottom_panel)
         }
     }
 
