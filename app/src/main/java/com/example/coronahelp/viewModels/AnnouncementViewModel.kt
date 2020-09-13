@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class AnnouncementViewModel : ViewModel() {
 
-    val announcement: MutableLiveData<Announcement> = MutableLiveData()
+    val announcement: MutableLiveData<Announcement?> = MutableLiveData()
 
     val success: MutableLiveData<Boolean> = MutableLiveData()
 

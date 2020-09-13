@@ -56,10 +56,15 @@ object RestCaller {
                 .get(mainUrl + restAnnouncementUrl + "/" + id)
                 .response()
 
-        val json = JsonParser().parse(String(response.data)).asJsonObject["data"].toString()
-        val gson = Gson()
-        val announcement = gson.fromJson(json, AnnouncementResponse::class.java)
-        return announcement.toAnnouncement()
+        result.fold({
+            val json = JsonParser().parse(String(response.data)).asJsonObject["data"].toString()
+            val gson = Gson()
+            val announcement = gson.fromJson(json, AnnouncementResponse::class.java)
+            return announcement.toAnnouncement()
+        },{
+            lastError = JsonParser().parse(String(response.data)).asJsonObject["message"].asString
+            return null
+        })
     }
 
     fun postAnnouncement(announcement: AnnouncementResponse): Boolean {

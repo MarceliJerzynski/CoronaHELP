@@ -31,6 +31,7 @@ class MyAnnouncementsFragment : Fragment() {
         recycler_view_my_tasks.adapter = MyAnnouncementRecyclerAdapter(mutableListOf())
 
         val model: MapsFragmentViewModel by viewModels()
+        model.refreshAnnouncements()
         model.announcements.observe(viewLifecycleOwner, Observer {
             (recycler_view_my_tasks.adapter as MyAnnouncementRecyclerAdapter).submitList(it.filter { announcement ->
                 announcement.owner?.email == RestCaller.email || announcement.performer?.email == RestCaller.email

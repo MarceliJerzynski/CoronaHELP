@@ -39,51 +39,54 @@ class AnnouncementFragment : Fragment() {
         val model: AnnouncementViewModel by viewModels()
         model.getAnnouncement(args.id)
 
-        model.announcement.observe(viewLifecycleOwner, Observer { announcement ->
-            title.text = announcement.title
-            description.text = announcement.description
-            reward.text = announcement.reward.toString()
-            val localDateTime: LocalDateTime = LocalDateTime.parse(announcement.time.toString())
-            val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
-            val output: String = formatter.format(localDateTime)
-            dateAndTime.text = output
-            location.text = MapUtils.getAddress(requireContext(), announcement.location)
+        model.announcement.observe(viewLifecycleOwner, Observer {
 
-            user_name.text = announcement.owner?.name
+            it?.let { announcement ->
+                title.text = announcement.title
+                description.text = announcement.description
+                reward.text = announcement.reward.toString()
+                val localDateTime: LocalDateTime = LocalDateTime.parse(announcement.time.toString())
+                val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
+                val output: String = formatter.format(localDateTime)
+                dateAndTime.text = output
+                location.text = MapUtils.getAddress(requireContext(), announcement.location)
 
-            if (announcement.owner?.email == RestCaller.email) {
-                deleteTaskButton.visibility = View.VISIBLE
-                takeThisTaskButton.visibility = View.GONE
+                user_name.text = announcement.owner?.name
 
-                if( announcement.performer != null )
-                    endTaskButton.visibility = View.VISIBLE
-                else
+                if (announcement.owner?.email == RestCaller.email) {
+                    deleteTaskButton.visibility = View.VISIBLE
+                    takeThisTaskButton.visibility = View.GONE
+
+                    if (announcement.performer != null)
+                        endTaskButton.visibility = View.VISIBLE
+                    else
+                        endTaskButton.visibility = View.GONE
+                } else {
+                    deleteTaskButton.visibility = View.GONE
+                    takeThisTaskButton.visibility = View.VISIBLE
                     endTaskButton.visibility = View.GONE
-            } else {
-                deleteTaskButton.visibility = View.GONE
-                takeThisTaskButton.visibility = View.VISIBLE
-                endTaskButton.visibility = View.GONE
+                }
+
+                if (announcement.performer != null) {
+                    takeThisTaskButton.visibility = View.GONE
+                    performer_layout.visibility = View.VISIBLE
+                    performer.text = announcement.performer!!.name
+                } else {
+                    performer_layout.visibility = View.GONE
+                }
+
+            } ?: run {
+                view.findNavController().popBackStack()
             }
 
-            if( announcement.performer != null )
-            {
-                takeThisTaskButton.visibility = View.GONE
-                performer_layout.visibility = View.VISIBLE
-                performer.text = announcement.performer!!.name
-            }
-            else
-            {
-                performer_layout.visibility = View.GONE
-            }
         })
 
         model.success.observe(viewLifecycleOwner, Observer {
             it.let {
-                if( it )
+                if (it)
                     view.findNavController().popBackStack()
-                else
-                {
-                    Toast.makeText(requireContext(), RestCaller.lastError, Toast.LENGTH_LONG )
+                else {
+                    Toast.makeText(requireContext(), RestCaller.lastError, Toast.LENGTH_LONG)
                 }
             }
         })
